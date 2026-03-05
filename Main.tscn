@@ -19,16 +19,19 @@ position = Vector2(-10, -2)
 script = ExtResource("2_fos0i")
 follow_mode = 1
 follow_target = NodePath("../Player")
-zoom = Vector2(2.505, 2.505)
+zoom = Vector2(3.38, 3.38)
 tween_resource = SubResource("Resource_rj586")
-follow_damping = true
+lookahead = true
+lookahead_time = Vector2(0.255, 0.255)
+lookahead_max = true
+lookahead_max_value = Vector2(200, 20)
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=77818432]
 physics_interpolation_mode = 1
 top_level = true
 position = Vector2(-10, -2)
-zoom = Vector2(2.505, 2.505)
+zoom = Vector2(3.38, 3.38)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=920053082]
 process_priority = 300
