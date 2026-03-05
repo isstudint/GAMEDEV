@@ -1,3 +1,64 @@
 [gd_scene format=3 uid="uid://4pqund3nukl7"]
 
+[ext_resource type="Script" uid="uid://ccl7k6d7g7ksk" path="res://Assets/Prototype movement.gd" id="1_0e48y"]
+[ext_resource type="Texture2D" uid="uid://dspp8xou1861" path="res://Assets/Fully Animated Character - Asset files/IDLE.png" id="1_wtcfe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0e48y"]
+atlas = ExtResource("1_wtcfe")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epypp"]
+atlas = ExtResource("1_wtcfe")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hol4"]
+atlas = ExtResource("1_wtcfe")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6r6c"]
+atlas = ExtResource("1_wtcfe")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kdubu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0e48y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epypp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hol4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6r6c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtcfe"]
+size = Vector2(4, 26)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wtcfe"]
+
 [node name="Node2D" type="Node2D" unique_id=1827394242]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=938178138]
+script = ExtResource("1_0e48y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1374946802]
+sprite_frames = SubResource("SpriteFrames_kdubu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1783145399]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_wtcfe")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1732224282]
+offset_left = -21.0
+offset_top = 25.0
+offset_right = 355.0
+offset_bottom = 39.0
+texture = SubResource("CanvasTexture_wtcfe")
