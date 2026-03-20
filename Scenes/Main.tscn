@@ -106,6 +106,7 @@
 [ext_resource type="Texture2D" uid="uid://cohm6utl56s15" path="res://Core/rev0047.png" id="104_8hdu8"]
 [ext_resource type="Texture2D" uid="uid://cqh7rmnxwawus" path="res://Core/rev0048.png" id="105_s0vbp"]
 [ext_resource type="PackedScene" uid="uid://cswmhycwxlkoq" path="res://Scenes/Door.tscn" id="106_cbpwj"]
+[ext_resource type="Texture2D" uid="uid://bqefie0ujdpv" path="res://Assets/Buttons/switch.png" id="107_jw3lw"]
 
 [sub_resource type="Resource" id="Resource_rj586"]
 script = ExtResource("3_3dxm6")
@@ -478,3 +479,13 @@ target_door = NodePath("../1B")
 [node name="1B" parent="." unique_id=600089977 instance=ExtResource("106_cbpwj")]
 position = Vector2(768, -138)
 target_door = NodePath("../1A")
+
+[node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=748417445]
+
+[node name="TextureButton" type="TextureButton" parent="Canvas Layer" unique_id=420061385]
+offset_right = 512.0
+offset_bottom = 512.0
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("107_jw3lw")
+
+[connection signal="pressed" from="Canvas Layer/TextureButton" to="Level handler" method="_on_texture_button_pressed"]

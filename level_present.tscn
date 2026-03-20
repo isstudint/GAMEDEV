@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cgg72h57jbemt"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_u2nku"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1nuhw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u2nku"]
+font_size = 56
+
+[node name="LevelPresent" type="Node2D" unique_id=624606284]
+
+[node name="ground" type="StaticBody2D" parent="." unique_id=814197100]
+
+[node name="TextureRect" type="TextureRect" parent="ground" unique_id=840157384]
+offset_left = -21.0
+offset_top = 25.0
+offset_right = 1586.0
+offset_bottom = 39.0
+texture = SubResource("CanvasTexture_u2nku")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground" unique_id=194516893]
+position = Vector2(12, 27)
+shape = SubResource("WorldBoundaryShape2D_1nuhw")
+
+[node name="Label" type="Label" parent="." unique_id=184459954]
+offset_left = 176.0
+offset_top = -63.0
+offset_right = 415.0
+offset_bottom = 14.0
+text = "PRESENT"
+label_settings = SubResource("LabelSettings_u2nku")
