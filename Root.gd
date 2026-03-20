@@ -48,6 +48,9 @@ func _set_collisions_enabled(node: Node, enabled: bool):
 	if node is CollisionShape2D or node is CollisionPolygon2D:
 		node.set_deferred("disabled", !enabled)
 
+	elif node is TileMapLayer:
+		node.set_deferred("disabled", !enabled)
+		
 	for child in node.get_children():
 		_set_collisions_enabled(child, enabled)
 		

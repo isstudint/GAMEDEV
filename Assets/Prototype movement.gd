@@ -467,6 +467,7 @@ func _physics_process(delta):
 		
 	if shortHopAkaVariableJumpHeight and jumpRelease and velocity.y < 0:
 		velocity.y = velocity.y / jumpVariable
+
 	
 	if jumps == 1:
 		if !is_on_floor() and !is_on_wall():
