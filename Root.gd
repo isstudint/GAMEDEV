@@ -8,6 +8,10 @@ var is_past = true
 var can_switch = true 
 var switch_cooldown = 3.0
 
+# para sa ibang chapter 
+var number_of_switching = 5.0
+
+
 
 func _ready():
 	_apply_timeline_state()
