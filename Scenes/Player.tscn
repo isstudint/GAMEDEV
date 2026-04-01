@@ -527,7 +527,7 @@ _data = {
 &"Jump": SubResource("Animation_dqj3d")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1503880482 node_paths=PackedStringArray("PlayerSprite", "PlayerCollider")]
+[node name="Player" type="CharacterBody2D" unique_id=1503880482 node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["player"]]
 script = ExtResource("1_cxr5p")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")

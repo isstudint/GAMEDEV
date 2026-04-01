@@ -3,7 +3,7 @@ extends Node2D
 @onready var LevelPast = $LevelPast
 @onready var LevelPresent = $LevelPresent
 
-var is_past = true  
+var is_past = false  
 # for switching purposes to jaco para malaman mo yung halaga ko 
 var can_switch = true 
 var switch_cooldown = 3.0

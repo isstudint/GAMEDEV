@@ -105,7 +105,6 @@
 [ext_resource type="Texture2D" uid="uid://cmwaptv4tiis7" path="res://Core/rev0046.png" id="103_mixfv"]
 [ext_resource type="Texture2D" uid="uid://cohm6utl56s15" path="res://Core/rev0047.png" id="104_8hdu8"]
 [ext_resource type="Texture2D" uid="uid://cqh7rmnxwawus" path="res://Core/rev0048.png" id="105_s0vbp"]
-[ext_resource type="PackedScene" uid="uid://cswmhycwxlkoq" path="res://Scenes/Door.tscn" id="106_cbpwj"]
 [ext_resource type="Texture2D" uid="uid://bqefie0ujdpv" path="res://Assets/Buttons/switch.png" id="107_jw3lw"]
 
 [sub_resource type="Resource" id="Resource_rj586"]
@@ -457,6 +456,7 @@ script = ExtResource("1_fos0i")
 [node name="LevelPast" parent="Level handler" unique_id=624606284 instance=ExtResource("6_trn2v")]
 
 [node name="LevelPresent" parent="Level handler" unique_id=1069710540 instance=ExtResource("5_lgr22")]
+visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=450030837]
 self_modulate = Color(1.4369954, 1.4369954, 1.4369954, 1)
@@ -470,14 +470,6 @@ frame_progress = 0.9607247
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1333329845]
 environment = SubResource("Environment_hln0y")
-
-[node name="1A" parent="." unique_id=198734192 instance=ExtResource("106_cbpwj")]
-position = Vector2(913, -38)
-target_door = NodePath("../1B")
-
-[node name="1B" parent="." unique_id=600089977 instance=ExtResource("106_cbpwj")]
-position = Vector2(810, -155)
-target_door = NodePath("../1A")
 
 [node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=748417445]
 
