@@ -591,6 +591,7 @@ func _physics_process(delta):
 	if is_on_floor() and groundPounding:
 		_endGroundPound()
 	move_and_slide()
+	check_clipping()
 	
 	if upToCancel and upHold and groundPound:
 		_endGroundPound()
@@ -675,3 +676,11 @@ func _endGroundPound():
 
 func _placeHolder():
 	print("")
+
+func die():
+	get_tree().reload_current_scene()
+
+func check_clipping():
+	if test_move(global_transform, Vector2.ZERO):
+		await get_tree().create_timer(2).timeout
+		die()

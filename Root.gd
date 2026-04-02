@@ -3,59 +3,51 @@ extends Node2D
 @onready var LevelPast = $LevelPast
 @onready var LevelPresent = $LevelPresent
 
-var is_past = false  
-# for switching purposes to jaco para malaman mo yung halaga ko 
-var can_switch = true 
-var switch_cooldown = 3.0
-
-# para sa ibang chapter 
+var is_past = false
+var can_switch = true
+var switch_cooldown = 0
 var number_of_switching = 5.0
 
 
-
 func _ready():
-	_apply_timeline_state()
+	_apply_timeline()
 
 
 func _input(event):
-	if can_switch == false and event.is_action_pressed("switch_time"):
-		print("skill on cooldown")
-	if event.is_action_pressed("switch_time") and can_switch:  
-		switch_timeline()
-		
+	if event.is_action_pressed("switch_time"):
+		if can_switch:
+			_switch()
+		else:
+			print("skill on cooldown")
 
-func switch_timeline():
+
+func _switch():
 	can_switch = false
 	is_past = !is_past
-	_apply_timeline_state()
+	_apply_timeline()
 	await get_tree().create_timer(switch_cooldown).timeout
 	can_switch = true
 
 
-func _apply_timeline_state():
-	_set_timeline_active(LevelPast, is_past)
-	_set_timeline_active(LevelPresent, !is_past)
+func _apply_timeline():
+	_toggle(LevelPast, is_past)
+	_toggle(LevelPresent, !is_past)
 
 
-func _set_timeline_active(level: Node, active: bool):
-	level.visible = active
-	level.set_process(active)
-	level.set_physics_process(active)
-	_set_collisions_enabled(level, active)
-
-
-func _set_collisions_enabled(node: Node, enabled: bool):
+func _toggle(node: Node, on: bool):
+	if node is CanvasItem:
+		node.visible = on
 	if node is CollisionShape2D or node is CollisionPolygon2D:
-		node.set_deferred("disabled", !enabled)
-
-	elif node is TileMapLayer:
-		node.set_deferred("disabled", !enabled)
-		
+		node.set_deferred("disabled", !on)
+	if node is TileMapLayer:
+		node.enabled = on
+	node.process_mode = PROCESS_MODE_INHERIT if on else PROCESS_MODE_DISABLED
 	for child in node.get_children():
-		_set_collisions_enabled(child, enabled)
-		
-func _on_texture_button_pressed() -> void:
+		_toggle(child, on)
+
+
+func _on_texture_button_pressed():
 	if can_switch:
-		switch_timeline()
+		_switch()
 	else:
-		print("Skill cooldown")
+		print("skill on cooldown")
