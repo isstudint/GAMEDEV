@@ -7,11 +7,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_lgr22"]
 [ext_resource type="PackedScene" uid="uid://by58q0obqosb" path="res://Level 1/level_present.tscn" id="5_lgr22"]
 [ext_resource type="PackedScene" uid="uid://cdnqcq36v0p4d" path="res://Level 1/level_past.tscn" id="6_trn2v"]
-[ext_resource type="Texture2D" uid="uid://cy6rygrnsyb86" path="res://Futuristic City Parallax/city2plan.png" id="9_grg3l"]
-[ext_resource type="Texture2D" uid="uid://wf5u40ol4lkn" path="res://Fire/0000.png" id="9_tnt7p"]
-[ext_resource type="Texture2D" uid="uid://bvbbk0tkye3hf" path="res://Futuristic City Parallax/city1plan.png" id="9_vy5pj"]
-[ext_resource type="Texture2D" uid="uid://cbqscly300ddn" path="res://Futuristic City Parallax/background.png" id="11_frkhe"]
-[ext_resource type="Texture2D" uid="uid://b41lrhr2sg4ft" path="res://Futuristic City Parallax/city3plan.png" id="12_1p5hy"]
+[ext_resource type="PackedScene" uid="uid://dfe8ss2pprks2" path="res://backgrounds.tscn" id="9_vy5pj"]
 [ext_resource type="Texture2D" uid="uid://bqefie0ujdpv" path="res://Assets/Buttons/switch.png" id="107_jw3lw"]
 
 [sub_resource type="Resource" id="Resource_rj586"]
@@ -57,6 +53,8 @@ scale = Vector2(0.9, 0.9)
 
 [node name="Level handler" type="Node2D" parent="." unique_id=1408881676]
 script = ExtResource("1_fos0i")
+GLITCH_STRENGTH = 0.01
+RGB_SPLIT = 0.02
 
 [node name="LevelPast" parent="Level handler" unique_id=624606284 instance=ExtResource("6_trn2v")]
 
@@ -74,59 +72,6 @@ scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("107_jw3lw")
 metadata/_edit_use_anchors_ = true
 
-[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1622438048]
-scroll_scale = Vector2(0.365, 0.365)
-scroll_offset = Vector2(11, -589)
-
-[node name="City2Plan" type="Sprite2D" parent="Parallax2D3" unique_id=862396672]
-z_index = -6
-texture_filter = 1
-position = Vector2(586.125, 1146.5)
-scale = Vector2(1.975, 1.975)
-texture = ExtResource("9_grg3l")
-
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1192202579]
-scroll_scale = Vector2(0.515, 0.515)
-scroll_offset = Vector2(11, -589)
-
-[node name="City1Plan" type="Sprite2D" parent="Parallax2D" unique_id=360777222]
-z_index = -3
-texture_filter = 1
-position = Vector2(-11.000001, -152)
-scale = Vector2(2.935, 2.935)
-texture = ExtResource("9_vy5pj")
-centered = false
-
-[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=66917438]
-scroll_scale = Vector2(0.105, 0.105)
-scroll_offset = Vector2(11, -589)
-repeat_size = Vector2(100, 0)
-
-[node name="Background" type="Sprite2D" parent="Parallax2D2" unique_id=1868363794]
-z_index = -10
-texture_filter = 1
-position = Vector2(569, 674)
-scale = Vector2(1.885, 1.885)
-texture = ExtResource("11_frkhe")
-
-[node name="Parallax2D4" type="Parallax2D" parent="." unique_id=179120935]
-z_index = -7
-scroll_scale = Vector2(0.24, 0.24)
-scroll_offset = Vector2(11, -589)
-
-[node name="City3Plan" type="Sprite2D" parent="Parallax2D4" unique_id=599049465]
-position = Vector2(584.5, 607.5)
-scale = Vector2(1.9380952, 1.7083334)
-texture = ExtResource("12_1p5hy")
-
-[node name="Parallax2D5" type="Parallax2D" parent="." unique_id=1728644441]
-z_index = 10
-scroll_scale = Vector2(0.965, 0.965)
-
-[node name="0000" type="Sprite2D" parent="Parallax2D5" unique_id=1014794865]
-position = Vector2(0, -92.99999)
-scale = Vector2(0.33, 0.33)
-texture = ExtResource("9_tnt7p")
-centered = false
+[node name="Backgrounds" parent="." unique_id=1953073957 instance=ExtResource("9_vy5pj")]
 
 [connection signal="pressed" from="Canvas Layer/TextureButton" to="Level handler" method="_on_texture_button_pressed"]
