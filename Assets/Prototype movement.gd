@@ -709,3 +709,47 @@ func check_clipping():
 	if test_move(global_transform, Vector2.ZERO):
 		await get_tree().create_timer(2).timeout
 		die()
+
+# ============================================================
+# DEBUG TELEPORTER — Press F9 to toggle, then left-click to teleport
+# Remove or disable before shipping!
+# ============================================================
+var _teleport_mode: bool = false
+var _teleport_label: Label = null
+
+func _setup_teleport_hud():
+	# Create a small HUD label to show teleport mode status
+	var canvas = CanvasLayer.new()
+	canvas.layer = 200
+	canvas.name = "TeleportHUD"
+	add_child(canvas)
+	
+	_teleport_label = Label.new()
+	_teleport_label.text = "⚡ TELEPORT MODE [F9] — Click to teleport"
+	_teleport_label.add_theme_font_size_override("font_size", 14)
+	_teleport_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.0))
+	_teleport_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
+	_teleport_label.add_theme_constant_override("shadow_offset_x", 1)
+	_teleport_label.add_theme_constant_override("shadow_offset_y", 1)
+	_teleport_label.position = Vector2(10, 10)
+	_teleport_label.visible = false
+	canvas.add_child(_teleport_label)
+
+func _unhandled_input(event):
+	# F9 toggles teleport mode
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F9:
+		_teleport_mode = !_teleport_mode
+		if _teleport_label == null:
+			_setup_teleport_hud()
+		_teleport_label.visible = _teleport_mode
+		if _teleport_mode:
+			print("[DEBUG] Teleport mode ON — click anywhere to teleport")
+		else:
+			print("[DEBUG] Teleport mode OFF")
+	
+	# Left-click to teleport when in teleport mode
+	if _teleport_mode and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var target = get_global_mouse_position()
+		global_position = target
+		velocity = Vector2.ZERO
+		print("[DEBUG] Teleported to: ", target)
