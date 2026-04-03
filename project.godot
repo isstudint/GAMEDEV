@@ -12,13 +12,13 @@ config_version=5
 
 config/name="Game Dev - PastForward"
 run/main_scene="uid://4pqund3nukl7"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
-DebugMenu="*uid://cggqb75a8w8r"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [display]
 
