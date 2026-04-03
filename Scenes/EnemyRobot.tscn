@@ -1,0 +1,134 @@
+[gd_scene load_steps=20 format=3 uid="uid://bddniih6xc5lu"]
+
+[ext_resource type="Script" uid="uid://bdbhmaeo50i5a" path="res://Scripts/enemy_robot.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dspp8xou1861" path="res://Assets/Fully Animated Character - Asset files/IDLE.png" id="2_0rvm0"]
+[ext_resource type="PackedScene" uid="uid://hso0qoujm4ct" path="res://Scenes/Bullet.tscn" id="2_p00pi"]
+[ext_resource type="Texture2D" uid="uid://dqo2abh126q2v" path="res://Assets/Fully Animated Character - Asset files/PUNCH 02.png" id="3_p00pi"]
+[ext_resource type="Texture2D" uid="uid://5l6vem5v2iq5" path="res://Assets/Fully Animated Character - Asset files/WALK.png" id="4_v8abp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ph7g1"]
+atlas = ExtResource("2_0rvm0")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydx2b"]
+atlas = ExtResource("2_0rvm0")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itwtn"]
+atlas = ExtResource("2_0rvm0")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bpft"]
+atlas = ExtResource("2_0rvm0")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0gcd"]
+atlas = ExtResource("3_p00pi")
+region = Rect2(0, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdt6q"]
+atlas = ExtResource("3_p00pi")
+region = Rect2(96, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i205u"]
+atlas = ExtResource("3_p00pi")
+region = Rect2(192, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyb03"]
+atlas = ExtResource("3_p00pi")
+region = Rect2(288, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q56kw"]
+atlas = ExtResource("4_v8abp")
+region = Rect2(0, 0, 72, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3f5ur"]
+atlas = ExtResource("4_v8abp")
+region = Rect2(72, 0, 72, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmerw"]
+atlas = ExtResource("4_v8abp")
+region = Rect2(144, 0, 72, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yphr0"]
+atlas = ExtResource("4_v8abp")
+region = Rect2(216, 0, 72, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_robot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ph7g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydx2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itwtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bpft")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0gcd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdt6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i205u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyb03")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q56kw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3f5ur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmerw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yphr0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(16, 24)
+
+[node name="EnemyRobot" type="CharacterBody2D"]
+script = ExtResource("1_script")
+bullet_scene = ExtResource("2_p00pi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_robot")
+animation = &"walk"
+frame_progress = 0.679899
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(150, 0)
+
+[node name="ShootCooldownTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="BulletSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(12, 0)

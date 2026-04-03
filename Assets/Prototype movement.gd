@@ -677,6 +677,31 @@ func _endGroundPound():
 func _placeHolder():
 	print("")
 
+# --- Health / Damage ---
+var health: int = 3
+var is_invincible: bool = false
+
+func take_damage(amount: int):
+	if is_invincible:
+		return
+	health -= amount
+	print("Player hit! Health: ", health)
+
+	is_invincible = true
+
+	# Flash red feedback
+	if PlayerSprite:
+		var tween = create_tween()
+		tween.tween_property(PlayerSprite, "modulate", Color(1, 0, 0, 0.5), 0.1)
+		tween.tween_property(PlayerSprite, "modulate", Color(1, 1, 1, 1), 0.1)
+		tween.set_loops(3)
+
+	await get_tree().create_timer(1.0).timeout
+	is_invincible = false
+
+	if health <= 0:
+		die()
+
 func die():
 	get_tree().reload_current_scene()
 
