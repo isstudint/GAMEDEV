@@ -936,7 +936,7 @@ scale = Vector2(0.24000001, 1)
 target_door = NodePath("../DoorSet3 - A")
 
 [node name="EnemyRobot" parent="." unique_id=581152601 instance=ExtResource("129_fm3g8")]
-position = Vector2(2386, -1)
+position = Vector2(2683, 128)
 
 [node name="MovingPlatform" parent="." unique_id=1240128378 instance=ExtResource("130_qjp8u")]
 position = Vector2(3915, 96)
