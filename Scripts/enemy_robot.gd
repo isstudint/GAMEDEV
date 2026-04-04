@@ -102,8 +102,9 @@ func _physics_process(delta):
 
 		sprite.play("walk")
 
-	# --- Flip sprite + floor check to match direction ---
+	# --- Flip sprite + detection + floor check to match direction ---
 	sprite.flip_h = (direction == -1)
+	$DetectionArea/CollisionShape2D.position.x = 75 * direction
 	floor_check.target_position.x = 12 * direction
 	bullet_spawn.position.x = abs(bullet_spawn.position.x) * direction
 
