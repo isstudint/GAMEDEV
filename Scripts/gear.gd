@@ -52,7 +52,7 @@ func stop_spin() -> void:
 
 func stop_moving() -> void:
 	is_moving = !is_moving
-
+	
 func start_spin() -> void:
 	is_spinning = true
 	var tween = create_tween()
