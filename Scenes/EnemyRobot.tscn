@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dspp8xou1861" path="res://Assets/Fully Animated Character - Asset files/IDLE.png" id="2_0rvm0"]
 [ext_resource type="PackedScene" uid="uid://hso0qoujm4ct" path="res://Scenes/Bullet.tscn" id="2_p00pi"]
 [ext_resource type="Texture2D" uid="uid://dqo2abh126q2v" path="res://Assets/Fully Animated Character - Asset files/PUNCH 02.png" id="3_p00pi"]
-[ext_resource type="Texture2D" uid="uid://5l6vem5v2iq5" path="res://Assets/Fully Animated Character - Asset files/WALK.png" id="4_v8abp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ph7g1"]
 atlas = ExtResource("2_0rvm0")
@@ -38,21 +37,21 @@ region = Rect2(192, 0, 96, 48)
 atlas = ExtResource("3_p00pi")
 region = Rect2(288, 0, 96, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rvm0"]
+atlas = ExtResource("2_0rvm0")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p00pi"]
+atlas = ExtResource("2_0rvm0")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8abp"]
+atlas = ExtResource("2_0rvm0")
+region = Rect2(96, 0, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_q56kw"]
-atlas = ExtResource("4_v8abp")
-region = Rect2(0, 0, 72, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3f5ur"]
-atlas = ExtResource("4_v8abp")
-region = Rect2(72, 0, 72, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmerw"]
-atlas = ExtResource("4_v8abp")
-region = Rect2(144, 0, 72, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yphr0"]
-atlas = ExtResource("4_v8abp")
-region = Rect2(216, 0, 72, 48)
+atlas = ExtResource("2_0rvm0")
+region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_robot"]
 animations = [{
@@ -92,16 +91,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0rvm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p00pi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8abp")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_q56kw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3f5ur")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pmerw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yphr0")
 }],
 "loop": true,
 "name": &"walk",
@@ -109,7 +108,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
-size = Vector2(16, 24)
+size = Vector2(16, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_detect"]
 size = Vector2(150, 80)
@@ -121,8 +120,10 @@ bullet_scene = ExtResource("2_p00pi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=661689738]
 sprite_frames = SubResource("SpriteFrames_robot")
 animation = &"walk"
+frame_progress = 0.7379343
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1557746851]
+position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_body")
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1893766754]
