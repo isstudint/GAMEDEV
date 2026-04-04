@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bddniih6xc5lu"]
+[gd_scene load_steps=21 format=3 uid="uid://bddniih6xc5lu"]
 
 [ext_resource type="Script" uid="uid://bdbhmaeo50i5a" path="res://Scripts/enemy_robot.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dspp8xou1861" path="res://Assets/Fully Animated Character - Asset files/IDLE.png" id="2_0rvm0"]
@@ -111,6 +111,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(16, 24)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detect"]
+size = Vector2(150, 80)
+
 [node name="EnemyRobot" type="CharacterBody2D"]
 script = ExtResource("1_script")
 bullet_scene = ExtResource("2_p00pi")
@@ -118,13 +121,20 @@ bullet_scene = ExtResource("2_p00pi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_robot")
 animation = &"walk"
-frame_progress = 0.679899
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_body")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(150, 0)
+[node name="DetectionArea" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(75, -10)
+shape = SubResource("RectangleShape2D_detect")
+
+[node name="FloorCheck" type="RayCast2D" parent="."]
+position = Vector2(8, 0)
+target_position = Vector2(0, 20)
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 1.5
