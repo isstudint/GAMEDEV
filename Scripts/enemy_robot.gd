@@ -83,7 +83,9 @@ func _physics_process(delta):
 				is_reacting = false
 				_shoot()
 		elif not cooldown_timer.is_stopped():
-			sprite.play("idle")
+			# Wait for the shoot animation to finish before playing idle
+			if sprite.animation != "shoot" or not sprite.is_playing():
+				sprite.play("idle")
 		else:
 			_shoot()
 	else:
@@ -106,7 +108,8 @@ func _physics_process(delta):
 	sprite.flip_h = (direction == -1)
 	$DetectionArea/CollisionShape2D.position.x = 75 * direction
 	floor_check.target_position.x = 12 * direction
-	bullet_spawn.position.x = abs(bullet_spawn.position.x) * direction
+	# Move bullet spawn far enough so the bullet doesn't hit the robot itself
+	bullet_spawn.position.x = 25 * direction
 
 	move_and_slide()
 
