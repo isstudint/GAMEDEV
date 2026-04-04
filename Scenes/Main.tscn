@@ -35,8 +35,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2135734600]
 physics_interpolation_mode = 1
-top_level = true
-position = Vector2(2352, -26)
+position = Vector2(1784, -8.000002)
 zoom = Vector2(3, 3)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1750193794]
