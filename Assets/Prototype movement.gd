@@ -709,7 +709,7 @@ func die():
 func check_clipping():
 	if test_move(global_transform, Vector2.ZERO):
 		await get_tree().create_timer(2).timeout
-		die()
+		#a die()
 
 # ============================================================
 # DEBUG TELEPORTER — Press F9 to toggle, then left-click to teleport

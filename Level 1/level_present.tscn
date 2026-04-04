@@ -129,6 +129,7 @@
 [ext_resource type="PackedScene" uid="uid://cswmhycwxlkoq" path="res://Scenes/Door.tscn" id="127_n60h5"]
 [ext_resource type="PackedScene" uid="uid://bpmnjh0ri5fis" path="res://Gear.tscn" id="127_s7d72"]
 [ext_resource type="PackedScene" uid="uid://bddniih6xc5lu" path="res://Scenes/EnemyRobot.tscn" id="129_fm3g8"]
+[ext_resource type="PackedScene" uid="uid://dfm2h8ri32vn3" path="res://Scenes/MovingPlatform.tscn" id="130_qjp8u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aad6k"]
 texture = ExtResource("1_1nuhw")
@@ -936,3 +937,7 @@ target_door = NodePath("../DoorSet3 - A")
 
 [node name="EnemyRobot" parent="." unique_id=581152601 instance=ExtResource("129_fm3g8")]
 position = Vector2(2386, -1)
+
+[node name="MovingPlatform" parent="." unique_id=1240128378 instance=ExtResource("130_qjp8u")]
+position = Vector2(3915, 96)
+scale = Vector2(0.7, 0.7)
