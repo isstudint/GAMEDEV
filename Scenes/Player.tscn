@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=3 uid="uid://c006a2ytwgn1n"]
+[gd_scene format=3 uid="uid://c006a2ytwgn1n"]
 
 [ext_resource type="Script" uid="uid://ccl7k6d7g7ksk" path="res://Assets/Prototype movement.gd" id="1_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://hhdbhpj0s4s4" path="res://Player Anim/Idle/chron-Idle_00.png" id="2_op78e"]
@@ -597,10 +597,10 @@ animations = [{
 "speed": 30.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtcfe"]
-size = Vector2(11, 62)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkbsi"]
+size = Vector2(11, 63.8578)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=870470296 node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["player"]]
 script = ExtResource("1_cxr5p")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
@@ -612,16 +612,15 @@ walk = true
 slide = true
 latch = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1503758227]
 position = Vector2(0, -3)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_kdubu")
-animation = &"run"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.861697
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 14)
-shape = SubResource("RectangleShape2D_wtcfe")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1171464581]
+position = Vector2(0.5, 13.9289)
+shape = SubResource("RectangleShape2D_vkbsi")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=731415087]

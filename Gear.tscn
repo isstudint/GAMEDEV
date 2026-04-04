@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bpmnjh0ri5fis"]
+
+[ext_resource type="Texture2D" uid="uid://c862eq0v5ll6m" path="res://chain.png" id="1_47weg"]
+[ext_resource type="Script" uid="uid://20jnc3vugnf5" path="res://Scripts/gear.gd" id="2_snila"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_snila"]
+radius = 244.0922
+
+[node name="Gear" type="Node2D" unique_id=2118002835]
+script = ExtResource("2_snila")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1423636049]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1370973823]
+shape = SubResource("CircleShape2D_snila")
+
+[node name="Chain" type="Sprite2D" parent="Area2D/CollisionShape2D" unique_id=1240004457]
+texture = ExtResource("1_47weg")

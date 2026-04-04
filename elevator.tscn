@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://6isbpeg1j2vw"]
 
-[ext_resource type="Script" uid="uid://clf8libsnw51v" path="res://Scenes/elevator.gd" id="1_pc862"]
+[ext_resource type="Script" uid="uid://clf8libsnw51v" path="res://Scripts/elevator.gd" id="1_pc862"]
 [ext_resource type="Texture2D" uid="uid://c1endverksr1d" path="res://rect37.png" id="2_pc862"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gho1x"]

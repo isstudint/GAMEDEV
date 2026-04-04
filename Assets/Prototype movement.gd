@@ -737,7 +737,7 @@ func _setup_teleport_hud():
 
 func _unhandled_input(event):
 	# F9 toggles teleport mode
-	if event is InputEventKey and event.pressed and event.keycode == KEY_F9:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F1:
 		_teleport_mode = !_teleport_mode
 		if _teleport_label == null:
 			_setup_teleport_hud()

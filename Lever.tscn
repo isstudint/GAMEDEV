@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://c8j0n4ul5qvr5"]
+
+[ext_resource type="Texture2D" uid="uid://2yvro7y7hlnh" path="res://leverbase.png" id="1_pix2u"]
+[ext_resource type="Shader" uid="uid://dik8rqexmbll7" path="res://Outline/outline.gdshader" id="2_0njty"]
+[ext_resource type="Texture2D" uid="uid://dhygjc134keoa" path="res://leverstick.png" id="2_cnfg5"]
+[ext_resource type="Script" uid="uid://b03cpi01574k7" path="res://Scripts/lever.gd" id="3_lever"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_srstd"]
+shader = ExtResource("2_0njty")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 10.0
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n4s2j"]
+shader = ExtResource("2_0njty")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 10.0
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnfg5"]
+size = Vector2(848, 600)
+
+[node name="Lever" type="Node2D" unique_id=191417954]
+script = ExtResource("3_lever")
+
+[node name="Leverbase" type="Sprite2D" parent="." unique_id=903359809]
+material = SubResource("ShaderMaterial_srstd")
+texture = ExtResource("1_pix2u")
+
+[node name="Leverstick" type="Sprite2D" parent="." unique_id=294251034]
+z_index = -1
+material = SubResource("ShaderMaterial_n4s2j")
+position = Vector2(0, 84)
+texture = ExtResource("2_cnfg5")
+offset = Vector2(0, -219)
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=964347185]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=16825983]
+position = Vector2(0, -212)
+shape = SubResource("RectangleShape2D_cnfg5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=221140903]
