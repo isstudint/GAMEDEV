@@ -1,3 +1,4 @@
+# moving_platform.gd — Horizontal moving platform with tween-based movement
 extends AnimatableBody2D
 
 ## Horizontal moving platform — tweens left and right smoothly.
