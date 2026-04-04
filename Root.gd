@@ -5,7 +5,7 @@ extends Node2D
 
 var is_past = false
 var can_switch = true
-var switch_cooldown = 0
+var switch_cooldown = 2
 var number_of_switching = 5.0
 
 # ============================================================
