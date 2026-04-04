@@ -44,7 +44,6 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=804899313]
 physics_interpolation_mode = 1
-top_level = true
 position = Vector2(1784, -8.000002)
 zoom = Vector2(3, 3)
 
@@ -79,6 +78,7 @@ RGB_SPLIT = 0.02
 [node name="LevelPast" parent="Level handler" unique_id=1534372409 instance=ExtResource("6_trn2v")]
 
 [node name="LevelPresent" parent="Level handler" unique_id=665975873 instance=ExtResource("5_lgr22")]
+visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=624335627]
 environment = SubResource("Environment_hln0y")
