@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://c006a2ytwgn1n"]
+[gd_scene load_steps=147 format=3 uid="uid://c006a2ytwgn1n"]
 
 [ext_resource type="Script" uid="uid://ccl7k6d7g7ksk" path="res://Assets/Prototype movement.gd" id="1_cxr5p"]
+[ext_resource type="Script" uid="uid://l5ulumxaujab" path="res://Scenes/state_disp.gd" id="2_4dpua"]
 [ext_resource type="Texture2D" uid="uid://hhdbhpj0s4s4" path="res://Player Anim/Idle/chron-Idle_00.png" id="2_op78e"]
 [ext_resource type="Texture2D" uid="uid://23qftoi7cki6" path="res://Player Anim/Idle/chron-Idle_01.png" id="3_4oq1b"]
 [ext_resource type="Texture2D" uid="uid://djjxjsywwx6yr" path="res://Player Anim/Idle/chron-Idle_02.png" id="4_ta47a"]
@@ -144,6 +145,14 @@
 [ext_resource type="Texture2D" uid="uid://pyh7s1ut2ylk" path="res://Player Anim/Walk/walk_27.png" id="120_pdn4m"]
 [ext_resource type="Texture2D" uid="uid://e26d25fj1j21" path="res://Player Anim/Walk/walk_28.png" id="121_wnhnj"]
 [ext_resource type="Texture2D" uid="uid://dsmc18qykevlq" path="res://Player Anim/Walk/walk_29.png" id="122_8eiaa"]
+
+[sub_resource type="SystemFont" id="SystemFont_50glp"]
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_vkbsi"]
+line_spacing = 1.0
+font = SubResource("SystemFont_50glp")
+font_color = Color(1, 0.94902, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kdubu"]
 animations = [{
@@ -600,7 +609,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkbsi"]
 size = Vector2(11, 63.8578)
 
-[node name="Player" type="CharacterBody2D" unique_id=870470296 node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["player"]]
 script = ExtResource("1_cxr5p")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
@@ -612,6 +621,18 @@ walk = true
 slide = true
 latch = true
 
+[node name="DebugHUD" type="CanvasLayer" parent="." unique_id=1685359606]
+layer = 100
+
+[node name="Label" type="Label" parent="DebugHUD" unique_id=1431512706]
+offset_left = 122.49994
+offset_top = 130.82416
+offset_right = 414.49994
+offset_bottom = 622.8241
+text = "Testing"
+label_settings = SubResource("LabelSettings_vkbsi")
+script = ExtResource("2_4dpua")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1503758227]
 position = Vector2(0, -3)
 scale = Vector2(0.15, 0.15)
@@ -619,8 +640,8 @@ sprite_frames = SubResource("SpriteFrames_kdubu")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1171464581]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 13.9289)
 shape = SubResource("RectangleShape2D_vkbsi")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=731415087]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

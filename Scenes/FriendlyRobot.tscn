@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://duekace2i5483"]
+[gd_scene load_steps=14 format=3 uid="uid://duekace2i5483"]
 
 [ext_resource type="Script" uid="uid://dijq8pjqivo4c" path="res://Scripts/friendly_robot.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dspp8xou1861" path="res://Assets/Fully Animated Character - Asset files/IDLE.png" id="2_6tpp8"]
@@ -86,3 +86,7 @@ animation = &"walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_platform")
+
+[node name="FloorCheck" type="RayCast2D" parent="."]
+position = Vector2(16, 0)
+target_position = Vector2(0, 20)
