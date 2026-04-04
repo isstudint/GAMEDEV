@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c006a2ytwgn1n"]
+[gd_scene load_steps=147 format=3 uid="uid://c006a2ytwgn1n"]
 
 [ext_resource type="Script" uid="uid://ccl7k6d7g7ksk" path="res://Assets/Prototype movement.gd" id="1_cxr5p"]
 [ext_resource type="Script" uid="uid://l5ulumxaujab" path="res://Scenes/state_disp.gd" id="2_4dpua"]
@@ -609,7 +609,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkbsi"]
 size = Vector2(11, 63.8578)
 
-[node name="Player" type="CharacterBody2D" unique_id=870470296 node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["player"]]
 script = ExtResource("1_cxr5p")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
@@ -640,8 +640,8 @@ sprite_frames = SubResource("SpriteFrames_kdubu")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1171464581]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 13.9289)
 shape = SubResource("RectangleShape2D_vkbsi")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=731415087]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

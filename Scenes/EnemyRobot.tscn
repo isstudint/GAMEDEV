@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bddniih6xc5lu"]
+[gd_scene load_steps=21 format=3 uid="uid://bddniih6xc5lu"]
 
 [ext_resource type="Script" uid="uid://bdbhmaeo50i5a" path="res://Scripts/enemy_robot.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dspp8xou1861" path="res://Assets/Fully Animated Character - Asset files/IDLE.png" id="2_0rvm0"]

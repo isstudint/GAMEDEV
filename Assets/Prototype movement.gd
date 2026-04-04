@@ -704,6 +704,7 @@ func take_damage(amount: int):
 
 func die():
 	get_tree().reload_current_scene()
+	queue_free()
 
 func check_clipping():
 	if test_move(global_transform, Vector2.ZERO):

@@ -2,12 +2,8 @@ extends Node2D
 
 ## How fast the gear spins (degrees per second)
 @export var spin_speed: float = 150.0
-
-
 @export var tween_time: float = 0.8
 @export var up_down: float = 200.0
-
-
 @export var bob_speed: float = 2.0
 
 var _start_y: float = 0.0
@@ -19,7 +15,11 @@ var _time: float = 0.0
 
 func _ready() -> void:
 	_current_speed = spin_speed
-	_start_y = position.y     
+	_start_y = position.y
+	
+	# Connect the Area2D signal if it exists as a child
+	if has_node("Area2D"):
+		$Area2D.body_entered.connect(_on_body_entered)
 
 func _process(delta: float) -> void:
 	rotation_degrees += _current_speed * delta
@@ -27,8 +27,12 @@ func _process(delta: float) -> void:
 	if is_moving:
 		_time += delta
 		position.y = _start_y + sin(_time * bob_speed) * up_down
-	
 
+# Called when something enters the gear's Area2D
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		body.die()
+		
 func toggle_spin() -> void:
 	is_spinning = !is_spinning
 	var tween = create_tween()
