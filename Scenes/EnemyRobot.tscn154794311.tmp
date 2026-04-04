@@ -108,35 +108,30 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
-size = Vector2(12, 29.5)
+size = Vector2(16, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_detect"]
-size = Vector2(143.5, 39)
+size = Vector2(141, 80)
 
 [node name="EnemyRobot" type="CharacterBody2D" unique_id=581152601]
 script = ExtResource("1_script")
 bullet_scene = ExtResource("2_p00pi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=661689738]
-position = Vector2(-1, -6)
 sprite_frames = SubResource("SpriteFrames_robot")
 animation = &"walk"
 frame_progress = 0.7379343
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1557746851]
-position = Vector2(-1, 2.25)
+position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_body")
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1893766754]
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1517163969]
-position = Vector2(74.25, -4.5)
+position = Vector2(79.5, -10)
 shape = SubResource("RectangleShape2D_detect")
-
-[node name="FloorCheck" type="RayCast2D" parent="." unique_id=1180828451]
-position = Vector2(8, 0)
-target_position = Vector2(0, 24)
 
 [node name="ShootCooldownTimer" type="Timer" parent="." unique_id=487689582]
 wait_time = 1.5
