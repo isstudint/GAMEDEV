@@ -7,8 +7,8 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_lgr22"]
 [ext_resource type="PackedScene" uid="uid://by58q0obqosb" path="res://Level 1/level_present.tscn" id="5_lgr22"]
 [ext_resource type="PackedScene" uid="uid://cdnqcq36v0p4d" path="res://Level 1/level_past.tscn" id="6_trn2v"]
+[ext_resource type="PackedScene" uid="uid://b4ffbx7esnehy" path="res://MainUI.tscn" id="9_bmxlf"]
 [ext_resource type="PackedScene" uid="uid://dfe8ss2pprks2" path="res://backgrounds.tscn" id="9_vy5pj"]
-[ext_resource type="Texture2D" uid="uid://bqefie0ujdpv" path="res://Assets/Buttons/switch.png" id="107_jw3lw"]
 
 [sub_resource type="Resource" id="Resource_rj586"]
 script = ExtResource("3_3dxm6")
@@ -21,7 +21,7 @@ glow_enabled = true
 
 [node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1177587100 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(324, -64)
+position = Vector2(3661, 11)
 script = ExtResource("2_fos0i")
 follow_mode = 1
 follow_target = NodePath("../Player")
@@ -37,7 +37,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2135734600]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(324, -64)
+position = Vector2(3661, 11)
 zoom = Vector2(3.5, 3.5)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1750193794]
@@ -48,7 +48,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Player" parent="." unique_id=111959720 instance=ExtResource("1_cm0pq")]
 z_index = 3
-position = Vector2(324, -64)
+position = Vector2(3661, 11)
 scale = Vector2(0.9, 0.9)
 
 [node name="Level handler" type="Node2D" parent="." unique_id=469715480]
@@ -64,36 +64,15 @@ visible = false
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=517840769]
 environment = SubResource("Environment_hln0y")
 
-[node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=1530608066]
-
-[node name="TextureButton" type="TextureButton" parent="Canvas Layer" unique_id=568206525]
-offset_right = 512.0
-offset_bottom = 512.0
-scale = Vector2(0.1, 0.1)
-texture_normal = ExtResource("107_jw3lw")
-metadata/_edit_use_anchors_ = true
-
-[node name="ColorRect2" type="ColorRect" parent="Canvas Layer" unique_id=1202799642]
-clip_contents = true
-offset_right = 1920.0
-offset_bottom = 72.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect3" type="ColorRect" parent="Canvas Layer" unique_id=353883250]
-clip_contents = true
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1920.0
-offset_top = -96.0
-grow_horizontal = 0
-grow_vertical = 0
-color = Color(0, 0, 0, 1)
+[node name="Control" parent="." unique_id=588417449 instance=ExtResource("9_bmxlf")]
 
 [node name="Backgrounds" parent="." unique_id=1953073957 instance=ExtResource("9_vy5pj")]
 z_index = -5
 position = Vector2(34, 103)
 
-[connection signal="pressed" from="Canvas Layer/TextureButton" to="Level handler" method="_on_texture_button_pressed"]
+[node name="Label" type="Label" parent="." unique_id=1300253014]
+offset_left = 4293.0
+offset_top = 276.0
+offset_right = 4333.0
+offset_bottom = 299.0
+text = "Collectible"

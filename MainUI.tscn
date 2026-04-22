@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://b4ffbx7esnehy"]
+
+[ext_resource type="Texture2D" uid="uid://bqefie0ujdpv" path="res://Assets/Buttons/switch.png" id="1_vfs0v"]
+
+[node name="Control" type="Control" unique_id=588417449]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Canvas Layer" type="CanvasLayer" parent="." unique_id=687414447]
+
+[node name="TextureButton" type="TextureButton" parent="Canvas Layer" unique_id=584821780]
+offset_left = 6.9999995
+offset_top = 68.99999
+offset_right = 519.0
+offset_bottom = 581.0
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("1_vfs0v")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="Canvas Layer" unique_id=2136098056]
+clip_contents = true
+offset_right = 1920.0
+offset_bottom = 72.72733
+scale = Vector2(1, 0.8799993)
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Canvas Layer" unique_id=2057554456]
+clip_contents = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1920.0
+offset_top = -88.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0, 0, 0, 1)

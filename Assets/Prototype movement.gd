@@ -181,12 +181,21 @@ var rollTap
 var downTap
 var twirlTap
 
+# --- Camera Peek (Ctrl + Arrows) ---
+var _pcam: Node2D = null
+var _peek_offset: Vector2 = Vector2.ZERO
+var _peek_max: float = 50.0
+var _peek_speed: float = 4.0
+
 func _ready():
 	wasMovingR = true
 	anim = PlayerSprite
 	col = PlayerCollider
-	
 	_updateData()
+	await get_tree().process_frame
+	_pcam = get_node_or_null("/root/Main/PhantomCamera2D")
+	if _pcam and _pcam.follow_mode == 1: # Switch Glued -> Simple so offset works
+		_pcam.follow_mode = 2
 	
 func _updateData():
 	acceleration = maxSpeed / timeToReachMaxSpeed
@@ -592,6 +601,7 @@ func _physics_process(delta):
 		_endGroundPound()
 	move_and_slide()
 	check_clipping()
+	_camera_peek(delta)
 	
 	if upToCancel and upHold and groundPound:
 		_endGroundPound()
@@ -676,6 +686,18 @@ func _endGroundPound():
 
 func _placeHolder():
 	print("")
+
+# --- Camera Peek ---
+func _camera_peek(delta: float) -> void:
+	if !_pcam: return
+	var ctrl := Input.is_key_pressed(KEY_CTRL)
+	var dir := Vector2(
+		float(Input.is_key_pressed(KEY_RIGHT)) - float(Input.is_key_pressed(KEY_LEFT)),
+		float(Input.is_key_pressed(KEY_DOWN)) - float(Input.is_key_pressed(KEY_UP))
+	) if ctrl else Vector2.ZERO
+	var target := dir.normalized() * _peek_max if dir != Vector2.ZERO else Vector2.ZERO
+	_peek_offset = _peek_offset.lerp(target, _peek_speed * delta)
+	_pcam.set_follow_offset(_peek_offset)
 
 # --- Health / Damage ---
 var health: int = 3
