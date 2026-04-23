@@ -38,6 +38,8 @@
 [ext_resource type="Texture2D" uid="uid://cciqxgcj8fvl5" path="res://Robot Anim/Walk/Walk_009.png" id="36_b3g8t"]
 [ext_resource type="Texture2D" uid="uid://d3asbjdtfp0tu" path="res://Robot Anim/Walk/Walk_010.png" id="37_lpqbs"]
 [ext_resource type="Texture2D" uid="uid://bd12nhw1bai5x" path="res://Robot Anim/Walk/Walk_011.png" id="38_aoucg"]
+[ext_resource type="AudioStream" uid="uid://ddo3m02n41fx" path="res://Sounds/enemy_robot-sfx.mp3" id="39_walk_sfx"]
+[ext_resource type="AudioStream" uid="uid://dugi784um6gh6" path="res://Sounds/enemy_robot-shoot.mp3" id="40_shoot_sfx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_robot"]
 animations = [{
@@ -203,3 +205,15 @@ one_shot = true
 
 [node name="BulletSpawnPoint" type="Marker2D" parent="." unique_id=958450686]
 position = Vector2(12, 0)
+
+[node name="WalkSFX" type="AudioStreamPlayer2D" parent="." unique_id=517873116]
+stream = ExtResource("39_walk_sfx")
+volume_db = 10.0
+max_distance = 800.0
+attenuation = 1.5
+
+[node name="ShootSFX" type="AudioStreamPlayer2D" parent="." unique_id=1599480023]
+stream = ExtResource("40_shoot_sfx")
+volume_db = 8.0
+max_distance = 1000.0
+attenuation = 1.2

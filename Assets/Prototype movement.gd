@@ -16,7 +16,7 @@ class_name PlatformerController2D
 #INFO HORIZONTAL MOVEMENT 
 @export_category("L/R Movement")
 ##The max speed your player will move
-@export_range(50, 500) var maxSpeed: float = 200.0
+@export_range(50, 500) var maxSpeed: float = 250.0
 ##How fast your player will reach max speed from rest (in seconds)
 @export_range(0, 4) var timeToReachMaxSpeed: float = 0.2
 ##How fast your player will reach zero speed from max speed (in seconds)
@@ -115,6 +115,17 @@ class_name PlatformerController2D
 @export var crouch_walk: bool
 ##Animations must be named "roll" all lowercase as the check box says
 @export var roll: bool
+ 
+@export_group("SFX")
+@export var footstep_player: AudioStreamPlayer2D
+@export var jump_sfx: AudioStreamPlayer2D
+@export var landing_sfx: AudioStreamPlayer2D
+
+# Preload sounds at compile time for performance
+var _walk_stream: AudioStream = preload("res://Sounds/walk.mp3")
+var _landing_stream: AudioStream = preload("res://Sounds/landing-sfx.mp3")
+var _airtime: float = 0.0  # Track how long we've been in the air
+ 
 
 
 
@@ -192,6 +203,7 @@ func _ready():
 	anim = PlayerSprite
 	col = PlayerCollider
 	_updateData()
+	_setup_footsteps()
 	await get_tree().process_frame
 	_pcam = get_node_or_null("/root/Main/PhantomCamera2D")
 	if _pcam and _pcam.follow_mode == 1: # Switch Glued -> Simple so offset works
@@ -516,6 +528,7 @@ func _physics_process(delta):
 		if jumpTap and is_on_wall() and wallJump:
 			_wallJump()
 		elif jumpTap and jumpCount > 0:
+			if jump_sfx: jump_sfx.play()
 			velocity.y = -jumpMagnitude
 			jumpCount = jumpCount - 1
 			_endGroundPound()
@@ -599,9 +612,19 @@ func _physics_process(delta):
 		_groundPound()
 	if is_on_floor() and groundPounding:
 		_endGroundPound()
+	
+	# --- Landing detection ---
+	if is_on_floor():
+		if _airtime > 0.15:  # Only trigger on real jumps/falls, not tiny hops
+			_play_landing()
+		_airtime = 0.0
+	else:
+		_airtime += delta
+	
 	move_and_slide()
 	check_clipping()
 	_camera_peek(delta)
+	_update_footsteps(delta)
 	
 	if upToCancel and upHold and groundPound:
 		_endGroundPound()
@@ -618,11 +641,13 @@ func _coyoteTime():
 	
 func _jump():
 	if jumpCount > 0:
+		if jump_sfx: jump_sfx.play()
 		velocity.y = -jumpMagnitude
 		jumpCount += -1
 		jumpWasPressed = false
 		
 func _wallJump():
+	if jump_sfx: jump_sfx.play()
 	var horizontalWallKick = abs(jumpMagnitude * cos(wallKickAngle * (PI / 180)))
 	var verticalWallKick = abs(jumpMagnitude * sin(wallKickAngle * (PI / 180)))
 	velocity.y = -verticalWallKick
@@ -685,7 +710,53 @@ func _endGroundPound():
 	gravityActive = true
 
 func _placeHolder():
-	print("")
+	pass
+
+func _setup_footsteps():
+	# Footstep player — auto-create if not assigned in scene
+	if !footstep_player:
+		footstep_player = AudioStreamPlayer2D.new()
+		footstep_player.name = "FootstepPlayer"
+		add_child(footstep_player)
+	
+	if _walk_stream:
+		footstep_player.stream = _walk_stream
+	
+	# Landing player — auto-create if not assigned in scene
+	if !landing_sfx:
+		landing_sfx = AudioStreamPlayer2D.new()
+		landing_sfx.name = "LandingSFX"
+		add_child(landing_sfx)
+	
+	if _landing_stream:
+		landing_sfx.stream = _landing_stream
+
+func _update_footsteps(delta: float):
+	# Only play when grounded, moving, not on wall, not dashing
+	var should_play = is_on_floor() and !is_on_wall() and abs(velocity.x) > 20.0 and !dashing and !latched
+	
+	if should_play:
+		var current_anim = PlayerSprite.animation
+		if current_anim == "walk" or current_anim == "run":
+			if !footstep_player.playing:
+				footstep_player.play()
+			# Pitch scales with movement speed for character
+			var speed_ratio = clamp(abs(velocity.x) / maxSpeedLock, 0.5, 1.5)
+			footstep_player.pitch_scale = 0.8 + (speed_ratio * 0.4)
+		else:
+			if footstep_player.playing:
+				footstep_player.stop()
+	else:
+		if footstep_player.playing:
+			footstep_player.stop()
+
+func _play_landing():
+	if landing_sfx and !landing_sfx.playing:
+		# Subtle crispy landing — scales with fall intensity
+		var impact = clamp(abs(velocity.y) / terminalVelocity, 0.2, 1.0)
+		landing_sfx.pitch_scale = 1.1 - (impact * 0.15)  # Slight deepening on hard falls
+		landing_sfx.volume_db = -12.0 + (impact * 8.0)    # -12dB to -4dB — subtle
+		landing_sfx.play()
 
 # --- Camera Peek ---
 func _camera_peek(delta: float) -> void:

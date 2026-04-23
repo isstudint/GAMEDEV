@@ -7,7 +7,7 @@ var is_past = false
 var can_switch = true
 var switch_cooldown = 0
 var number_of_switching = 5.0
-
+@onready var swap_sfx = $"../Player/tp_sfx"
 # ============================================================
 # CUSTOMIZATION — Tweak in Inspector > "Remote" tab for live testing
 # ============================================================
@@ -27,6 +27,10 @@ var number_of_switching = 5.0
 @export_group("Timeline Colors — tints the actual game world")
 @export var PAST_COLOR: Color = Color(1.15, 1.05, 0.88)       # Warm amber
 @export var PRESENT_COLOR: Color = Color(0.88, 0.95, 1.12)    # Cool blue
+
+@export_group("SFX Pitches")
+@export var PAST_PITCH: float = 0.7         # Deeper, slower sound
+@export var PRESENT_PITCH: float = 1.4      # Higher, faster "pahigop" sound
 
 
 # ============================================================
@@ -127,6 +131,21 @@ func _get_ripple_center() -> Vector2:
 func _switch():
 	can_switch = false
 
+	var half = TRANSITION_TIME * 0.5
+
+	# --- SFX 'Pahigop' Effect ---
+	# We use a pitch ramp to differentiate the two timelines
+	if is_past: # Switching TO PRESENT
+		swap_sfx.pitch_scale = 0.8 # Start lower
+		var sfx_tween = create_tween()
+		sfx_tween.tween_property(swap_sfx, "pitch_scale", PRESENT_PITCH, half).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	else: # Switching TO PAST
+		swap_sfx.pitch_scale = 1.2 # Start higher
+		var sfx_tween = create_tween()
+		sfx_tween.tween_property(swap_sfx, "pitch_scale", PAST_PITCH, half).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	
+	swap_sfx.play()
+
 	# --- Build fullscreen overlay ---
 	var layer = CanvasLayer.new()
 	layer.layer = 100
@@ -154,8 +173,6 @@ func _switch():
 	mat.set_shader_parameter("aspect_ratio", vp_size.x / vp_size.y)
 
 	rect.material = mat
-
-	var half = TRANSITION_TIME * 0.5
 
 	# ===== PHASE 1: Reality breaking (first half) =====
 	# Ripple starts expanding from player + subtle glitch ramps up
