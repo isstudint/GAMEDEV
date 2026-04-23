@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c006a2ytwgn1n"]
 
 [ext_resource type="Script" uid="uid://ccl7k6d7g7ksk" path="res://Assets/Prototype movement.gd" id="1_cxr5p"]
-[ext_resource type="Script" uid="uid://l5ulumxaujab" path="res://Scenes/state_disp.gd" id="2_4dpua"]
+[ext_resource type="Script" path="res://Scenes/state_disp.gd" id="2_4dpua"]
 [ext_resource type="Texture2D" uid="uid://hhdbhpj0s4s4" path="res://Player Anim/Idle/chron-Idle_00.png" id="2_op78e"]
 [ext_resource type="Texture2D" uid="uid://23qftoi7cki6" path="res://Player Anim/Idle/chron-Idle_01.png" id="3_4oq1b"]
 [ext_resource type="Texture2D" uid="uid://djjxjsywwx6yr" path="res://Player Anim/Idle/chron-Idle_02.png" id="4_ta47a"]

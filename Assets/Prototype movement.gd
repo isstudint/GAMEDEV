@@ -16,7 +16,7 @@ class_name PlatformerController2D
 #INFO HORIZONTAL MOVEMENT 
 @export_category("L/R Movement")
 ##The max speed your player will move
-@export_range(50, 500) var maxSpeed: float = 200.0
+@export_range(50, 500) var maxSpeed: float = 250.0
 ##How fast your player will reach max speed from rest (in seconds)
 @export_range(0, 4) var timeToReachMaxSpeed: float = 0.2
 ##How fast your player will reach zero speed from max speed (in seconds)
