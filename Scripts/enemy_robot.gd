@@ -21,6 +21,8 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var cooldown_timer: Timer = $ShootCooldownTimer
 @onready var bullet_spawn: Marker2D = $BulletSpawnPoint
+@onready var walk_sfx: AudioStreamPlayer2D = $WalkSFX
+@onready var shoot_sfx: AudioStreamPlayer2D = $ShootSFX
 
 var direction: int = 1   # 1 = right, -1 = left
 var start_x: float
@@ -70,6 +72,9 @@ func _physics_process(delta):
 			direction = -1
 
 		velocity.x = 0
+		# Stop walk sound when engaging player
+		if walk_sfx and walk_sfx.playing:
+			walk_sfx.stop()
 
 		# React delay before first shot
 		if not is_reacting and cooldown_timer.is_stopped():
@@ -103,6 +108,10 @@ func _physics_process(delta):
 			direction = 1
 
 		sprite.play("walk")
+		# Play walk SFX while patrolling
+		if walk_sfx and !walk_sfx.playing:
+			walk_sfx.pitch_scale = randf_range(0.9, 1.1)
+			walk_sfx.play()
 
 	# --- Flip sprite + detection + floor check to match direction ---
 	sprite.flip_h = (direction == -1)
@@ -119,6 +128,8 @@ func _shoot():
 		return
 	cooldown_timer.start()
 	sprite.play("shoot")
+	if shoot_sfx:
+		shoot_sfx.play()
 
 	if bullet_scene:
 		var bullet = bullet_scene.instantiate()
