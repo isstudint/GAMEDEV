@@ -4,6 +4,27 @@
 [ext_resource type="PackedScene" uid="uid://6isbpeg1j2vw" path="res://elevator.tscn" id="3_fr2q8"]
 [ext_resource type="PackedScene" uid="uid://cswmhycwxlkoq" path="res://Scenes/Door.tscn" id="4_gdmf7"]
 [ext_resource type="PackedScene" uid="uid://bpmnjh0ri5fis" path="res://Gear.tscn" id="4_pm80t"]
+[ext_resource type="Texture2D" uid="uid://b435rrs8uqicp" path="res://Assets/TextPanel/Past_panel/0000.png" id="5_t4u5f"]
+[ext_resource type="Texture2D" uid="uid://cqx6y4c4akgxq" path="res://Assets/TextPanel/Past_panel/0001.png" id="6_b645o"]
+[ext_resource type="Texture2D" uid="uid://dvdnntfinf0yu" path="res://Assets/TextPanel/Past_panel/0002.png" id="7_0685q"]
+[ext_resource type="Texture2D" uid="uid://di2s6rvdxpoqq" path="res://Assets/TextPanel/Past_panel/0003.png" id="8_p18lq"]
+[ext_resource type="Texture2D" uid="uid://5xylh2rxrl3i" path="res://Assets/TextPanel/Past_panel/0004.png" id="9_lihld"]
+[ext_resource type="Texture2D" uid="uid://cthjtwmoqn4vc" path="res://Assets/TextPanel/Past_panel/0005.png" id="10_6iefp"]
+[ext_resource type="Texture2D" uid="uid://cb3wqsoopbigp" path="res://Assets/TextPanel/Past_panel/0006.png" id="11_o6oo2"]
+[ext_resource type="Texture2D" uid="uid://6u3doxhtkbmt" path="res://Assets/TextPanel/Past_panel/0007.png" id="12_x1lot"]
+[ext_resource type="Texture2D" uid="uid://dkjatvbn3428d" path="res://Assets/TextPanel/Past_panel/0008.png" id="13_gebso"]
+[ext_resource type="Texture2D" uid="uid://clm6s4x52gmf2" path="res://Assets/TextPanel/Past_panel/0009.png" id="14_qak7m"]
+[ext_resource type="Texture2D" uid="uid://bt7i45bckuvkc" path="res://Assets/TextPanel/Past_panel/0010.png" id="15_uv75i"]
+[ext_resource type="Texture2D" uid="uid://crwwn744r7npl" path="res://Assets/TextPanel/Past_panel/0011.png" id="16_i574g"]
+[ext_resource type="Texture2D" uid="uid://cos684kckqftb" path="res://Assets/TextPanel/Past_panel/0012.png" id="17_cwdfb"]
+[ext_resource type="Texture2D" uid="uid://bg7plyc2qc15o" path="res://Assets/TextPanel/Past_panel/0013.png" id="18_f0pca"]
+[ext_resource type="Texture2D" uid="uid://dasmjjw826ojm" path="res://Assets/TextPanel/Past_panel/0014.png" id="19_b3eue"]
+[ext_resource type="Texture2D" uid="uid://clkxfpcuqkxi4" path="res://Assets/TextPanel/Past_panel/0015.png" id="20_lxxls"]
+[ext_resource type="Texture2D" uid="uid://c4gx8db661v5c" path="res://Assets/TextPanel/Past_panel/0016.png" id="21_qstap"]
+[ext_resource type="Texture2D" uid="uid://cjeulmxliph86" path="res://Assets/TextPanel/Past_panel/0017.png" id="22_px7sj"]
+[ext_resource type="Texture2D" uid="uid://dhm4o1cve4yn1" path="res://Assets/TextPanel/Past_panel/0018.png" id="23_3d0xs"]
+[ext_resource type="Texture2D" uid="uid://0vjrmcmjirbo" path="res://Assets/TextPanel/Past_panel/0019.png" id="24_spoeq"]
+[ext_resource type="Texture2D" uid="uid://w5bavifh2jlw" path="res://Assets/TextPanel/Past_panel/0020.png" id="25_ds2em"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gdmf7"]
 texture = ExtResource("1_xjhtp")
@@ -166,6 +187,77 @@ tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_gdmf7")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_wtm18"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_t4u5f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_b645o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0685q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_p18lq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lihld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_6iefp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_o6oo2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_x1lot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_gebso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_qak7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_uv75i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_i574g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_cwdfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_f0pca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_b3eue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_lxxls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_qstap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_px7sj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_3d0xs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_spoeq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_ds2em")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
 [node name="LevelPast" type="Node2D" unique_id=1700843424]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=549206049]
@@ -209,3 +301,29 @@ target_door = NodePath("../DoorSet3 - B")
 position = Vector2(2767, -116)
 scale = Vector2(0.24000001, 1)
 target_door = NodePath("../DoorSet3 - A")
+
+[node name="Parallax2D5" type="Parallax2D" parent="." unique_id=479553935]
+scroll_scale = Vector2(1.3, 1.3)
+
+[node name="text_panel" type="AnimatedSprite2D" parent="Parallax2D5" unique_id=297342091]
+z_index = 10
+position = Vector2(1116.6061, -127.01399)
+scale = Vector2(0.2364054, 0.23640543)
+sprite_frames = SubResource("SpriteFrames_wtm18")
+autoplay = "default"
+
+[node name="ColorRect" type="ColorRect" parent="Parallax2D5/text_panel" unique_id=1331256157]
+offset_left = 286.76163
+offset_top = 179.10973
+offset_right = 398.57037
+offset_bottom = 666.94275
+color = Color(0.654902, 0.9490196, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="Parallax2D5/text_panel" unique_id=617125054]
+offset_left = -389.94473
+offset_top = 176.86693
+offset_right = -278.136
+offset_bottom = 664.69995
+color = Color(0.654902, 0.9490196, 1, 1)
+metadata/_edit_use_anchors_ = true

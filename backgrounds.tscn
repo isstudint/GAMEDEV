@@ -1,43 +1,115 @@
 [gd_scene format=3 uid="uid://dfe8ss2pprks2"]
 
-[ext_resource type="Texture2D" uid="uid://c7wlxltv0jjmj" path="res://layer1.png" id="2_1o8ca"]
+[ext_resource type="Texture2D" uid="uid://c7wlxltv0jjmj" path="res://Level 1 - Background/bg-present/layer1.png" id="2_1o8ca"]
 [ext_resource type="Texture2D" uid="uid://bbehbxtnj0er6" path="res://layer2.png" id="2_8fqiw"]
-[ext_resource type="Texture2D" uid="uid://clq6x77yflnvj" path="res://bg3.png" id="2_325t4"]
+[ext_resource type="Texture2D" uid="uid://djayotapj1qvj" path="res://Level 1 - Background/bg-present/4.png" id="2_qdgfh"]
+[ext_resource type="Texture2D" uid="uid://84xukgsfqvao" path="res://Level 1 - Background/bg-present/fin.png" id="3_8fqiw"]
+[ext_resource type="Texture2D" uid="uid://cqtu7t0vq5w8x" path="res://Level 1 - Background/bg-present/Stars iphone6+.png" id="4_8fqiw"]
+
+[sub_resource type="Gradient" id="Gradient_qdgfh"]
+colors = PackedColorArray(1, 1, 1, 0, 0.756228, 0.16248745, 0.0657693, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3gs5q"]
+gradient = SubResource("Gradient_qdgfh")
+use_hdr = true
+fill_from = Vector2(0, 0.30769232)
+fill_to = Vector2(0, 0.8119658)
 
 [node name="Backgrounds" type="Node2D" unique_id=1953073957]
 
-[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=606047663]
-scale = Vector2(0.5, 0.5)
-scroll_scale = Vector2(0.3, 0.3)
-repeat_size = Vector2(2907.46, 0)
+[node name="Mainbg" type="Parallax2D" parent="." unique_id=2145257324]
+z_index = -4
+scale = Vector2(0.66, 0.66)
+scroll_scale = Vector2(0.09, 0.09)
+repeat_size = Vector2(1376.17, 0)
 repeat_times = 5
 
-[node name="Bg3" type="Sprite2D" parent="Parallax2D2" unique_id=803585937]
-self_modulate = Color(0.42235464, 0.3813614, 0.13959822, 1)
-position = Vector2(3568.5269, -206.56927)
-scale = Vector2(1.5151514, 1.5151514)
-texture = ExtResource("2_325t4")
+[node name="Layer1" type="Sprite2D" parent="Mainbg" unique_id=26053044]
+self_modulate = Color(0.31778997, 0.31778997, 0.31778997, 1)
+texture_filter = 1
+position = Vector2(31.102322, -86.495155)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("4_8fqiw")
 centered = false
 
-[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=705953419]
+[node name="Last Layer" type="Parallax2D" parent="." unique_id=1954727968]
 scale = Vector2(0.435, 0.435)
-scroll_scale = Vector2(0.4, 0.4)
-repeat_size = Vector2(1920, 0)
+scroll_scale = Vector2(0.19, 0.19)
+repeat_size = Vector2(600.295, 0)
 repeat_times = 5
 
-[node name="Layer2" type="Sprite2D" parent="Parallax2D3" unique_id=875174045]
-self_modulate = Color(0.21759246, 0.27332222, 0.23616908, 1)
-position = Vector2(-85.057465, -151.72417)
+[node name="4" type="Sprite2D" parent="Last Layer" unique_id=1270356126]
+modulate = Color(0.3529467, 0.56427884, 0.7907063, 1)
+z_index = -3
+texture_filter = 1
+position = Vector2(593.59924, 339.71497)
+scale = Vector2(1.214, 1.214)
+texture = ExtResource("2_qdgfh")
+centered = false
+
+[node name="ColorRect2" type="ColorRect" parent="Last Layer/4" unique_id=1050689272]
+offset_left = -371.55725
+offset_top = 309.08362
+offset_right = -331.55725
+offset_bottom = 349.08362
+scale = Vector2(56.8, 6.77)
+color = Color(0.023529412, 0.05882353, 0.20784314, 1)
+
+[node name="fog" type="Parallax2D" parent="." unique_id=842870678]
+scale = Vector2(0.435, 0.435)
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(811.17, 0)
+repeat_times = 5
+
+[node name="TextureRect" type="TextureRect" parent="fog" unique_id=686148375]
+modulate = Color(1, 1, 1, 0.11764706)
+offset_left = 1653.671
+offset_top = 305.58215
+offset_right = 2464.671
+offset_bottom = 1105.5822
+texture = SubResource("GradientTexture2D_3gs5q")
+
+[node name="3rd Layer" type="Parallax2D" parent="." unique_id=705953419]
+z_index = -1
+scale = Vector2(0.435, 0.435)
+scroll_scale = Vector2(0.3, 0.3)
+repeat_size = Vector2(1313.53, 0)
+repeat_times = 5
+
+[node name="Layer2" type="Sprite2D" parent="3rd Layer" unique_id=875174045]
+self_modulate = Color(0.2805461, 0.65504754, 0.9821034, 1)
+position = Vector2(4.597701, 197.70114)
+scale = Vector2(0.685, 0.685)
 texture = ExtResource("2_8fqiw")
 centered = false
 
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1161201160]
+[node name="2nd Layer" type="Parallax2D" parent="." unique_id=1161201160]
 scale = Vector2(0.66, 0.66)
-scroll_scale = Vector2(0.5, 0.5)
-repeat_size = Vector2(1920, 0)
+scroll_scale = Vector2(0.4, 0.4)
+repeat_size = Vector2(1197.885, 0)
 repeat_times = 5
 
-[node name="Layer1" type="Sprite2D" parent="Parallax2D" unique_id=2115782541]
-self_modulate = Color(0.76046604, 1.8692226, 2.1382592, 1)
+[node name="Layer1" type="Sprite2D" parent="2nd Layer" unique_id=2115782541]
+position = Vector2(71.21212, 53.030304)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_1o8ca")
 centered = false
+
+[node name="1st Layer" type="Parallax2D" parent="." unique_id=2031424037]
+scale = Vector2(0.66, 0.66)
+scroll_scale = Vector2(0.6, 0.6)
+repeat_size = Vector2(1500, 0)
+repeat_times = 5
+
+[node name="Fin" type="Sprite2D" parent="1st Layer" unique_id=1249871524]
+position = Vector2(722.7273, 171.21211)
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("3_8fqiw")
+
+[node name="ColorRect" type="ColorRect" parent="1st Layer" unique_id=1086005277]
+offset_left = 1446.5631
+offset_top = 528.6182
+offset_right = 1486.5631
+offset_bottom = 568.6182
+scale = Vector2(37.765, 6.77)
+color = Color(0.043137256, 0.3137255, 0.37254903, 1)

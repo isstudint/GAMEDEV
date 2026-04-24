@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://c006a2ytwgn1n"]
 
 [ext_resource type="Script" uid="uid://ccl7k6d7g7ksk" path="res://Assets/Prototype movement.gd" id="1_cxr5p"]
-[ext_resource type="Script" path="res://Scenes/state_disp.gd" id="2_4dpua"]
+[ext_resource type="Script" uid="uid://l5ulumxaujab" path="res://Scenes/state_disp.gd" id="2_4dpua"]
 [ext_resource type="Texture2D" uid="uid://hhdbhpj0s4s4" path="res://Player Anim/Idle/chron-Idle_00.png" id="2_op78e"]
+[ext_resource type="Shader" uid="uid://d4bc5dpk2emcx" path="res://shaders/shaderlib/teleport_effect.gdshader" id="2_shader"]
 [ext_resource type="Texture2D" uid="uid://23qftoi7cki6" path="res://Player Anim/Idle/chron-Idle_01.png" id="3_4oq1b"]
 [ext_resource type="Texture2D" uid="uid://djjxjsywwx6yr" path="res://Player Anim/Idle/chron-Idle_02.png" id="4_ta47a"]
 [ext_resource type="Texture2D" uid="uid://250r2w1o0pdp" path="res://Player Anim/Idle/chron-Idle_03.png" id="5_6v1ow"]
@@ -153,6 +154,13 @@ subpixel_positioning = 0
 line_spacing = 1.0
 font = SubResource("SystemFont_50glp")
 font_color = Color(1, 0.94902, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tp"]
+shader = ExtResource("2_shader")
+shader_parameter/progress = 0.0
+shader_parameter/noise_desnity = 68.855
+shader_parameter/beam_size = 0.06500000238898
+shader_parameter/color = Color(0, 1.1801503, 1.199976, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kdubu"]
 animations = [{
@@ -613,6 +621,7 @@ size = Vector2(11, 63.8578)
 script = ExtResource("1_cxr5p")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
+maxSpeed = 200.0
 runningModifier = true
 run = true
 jump = true
@@ -634,6 +643,7 @@ label_settings = SubResource("LabelSettings_vkbsi")
 script = ExtResource("2_4dpua")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1503758227]
+material = SubResource("ShaderMaterial_tp")
 position = Vector2(0, -3)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_kdubu")

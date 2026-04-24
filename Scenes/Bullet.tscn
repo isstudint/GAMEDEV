@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://hso0qoujm4ct"]
 
 [ext_resource type="Script" uid="uid://50wf06n2xt7n" path="res://Scripts/bullet.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://wf5u40ol4lkn" path="res://Fire/0000.png" id="2_14k46"]
+[ext_resource type="Texture2D" uid="uid://wf5u40ol4lkn" path="res://Assets/Fire/0000.png" id="2_14k46"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bullet"]
 radius = 3.0

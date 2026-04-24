@@ -10,6 +10,8 @@ var target_position: Vector2
 enum State { IDLE_TOP, GOING_DOWN, IDLE_BOTTOM, GOING_UP }
 var current_state = State.IDLE_TOP
 
+@onready var elevator_sound = $SoundUp
+
 func _ready():
 	start_position = global_position
 	target_position = start_position + Vector2(0, move_distance)
@@ -23,16 +25,20 @@ func _physics_process(delta):
 			if global_position.distance_to(target_position) < 1.0:
 				global_position = target_position
 				current_state = State.IDLE_BOTTOM 
+				elevator_sound.stop()
 
 		State.GOING_UP:
 			global_position = global_position.move_toward(start_position,move_speed * delta)
 			if global_position.distance_to(start_position) < 1.0:
 				global_position = start_position
 				current_state = State.IDLE_TOP 
+				elevator_sound.stop()
 
 func _on_player_entered(body):
 	if body.is_in_group("player"):
 		if current_state == State.IDLE_TOP:
 			current_state = State.GOING_DOWN
+			elevator_sound.play()
 		elif current_state == State.IDLE_BOTTOM:
 			current_state = State.GOING_UP
+			elevator_sound.play()
