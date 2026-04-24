@@ -19,6 +19,10 @@ run/main_scene="uid://4pqund3nukl7"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://dimvvba2bwy0"
+
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
@@ -28,13 +32,14 @@ DebugMenu="*uid://cggqb75a8w8r"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/parallax2d_preview/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/parallax2d_preview/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/shader_library/plugin.cfg")
 
 [input]
 
@@ -107,3 +112,7 @@ interact={
 
 rendering_device/driver.windows="d3d12"
 viewport/hdr_2d=true
+
+[shader_library]
+
+internal/previous_shaders_folder="res://shaders/shaderlib/"

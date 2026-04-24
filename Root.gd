@@ -7,7 +7,8 @@ var is_past = false
 var can_switch = true
 var switch_cooldown = 0
 var number_of_switching = 5.0
-
+@onready var swap_sfx = $"../Player/tp_sfx"
+@onready var bgm = $"../BGM"
 # ============================================================
 # CUSTOMIZATION — Tweak in Inspector > "Remote" tab for live testing
 # ============================================================
@@ -25,8 +26,12 @@ var number_of_switching = 5.0
 @export_range(0.0, 0.02) var RGB_SPLIT: float = 0.005         # Color channel separation
 
 @export_group("Timeline Colors — tints the actual game world")
-@export var PAST_COLOR: Color = Color(1.15, 1.05, 0.88)       # Warm amber
+@export var PAST_COLOR: Color = Color('#F5EDD8')       # Warm amber
 @export var PRESENT_COLOR: Color = Color(0.88, 0.95, 1.12)    # Cool blue
+
+@export_group("SFX Pitches")
+@export var PAST_PITCH: float = 0.7         # Deeper, slower sound
+@export var PRESENT_PITCH: float = 1.4      # Higher, faster "pahigop" sound
 
 
 # ============================================================
@@ -127,6 +132,21 @@ func _get_ripple_center() -> Vector2:
 func _switch():
 	can_switch = false
 
+	var half = TRANSITION_TIME * 0.5
+
+	# --- SFX 'Pahigop' Effect ---
+	# We use a pitch ramp to differentiate the two timelines
+	if is_past: # Switching TO PRESENT
+		swap_sfx.pitch_scale = 0.8 # Start lower
+		var sfx_tween = create_tween()
+		sfx_tween.tween_property(swap_sfx, "pitch_scale", PRESENT_PITCH, half).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	else: # Switching TO PAST
+		swap_sfx.pitch_scale = 1.2 # Start higher
+		var sfx_tween = create_tween()
+		sfx_tween.tween_property(swap_sfx, "pitch_scale", PAST_PITCH, half).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	
+	swap_sfx.play()
+
 	# --- Build fullscreen overlay ---
 	var layer = CanvasLayer.new()
 	layer.layer = 100
@@ -155,11 +175,18 @@ func _switch():
 
 	rect.material = mat
 
-	var half = TRANSITION_TIME * 0.5
+	# Get player material for teleport effect
+	var player_sprite = get_parent().get_node_or_null("Player/AnimatedSprite2D")
+	var player_mat = player_sprite.material if player_sprite else null
 
 	# ===== PHASE 1: Reality breaking (first half) =====
 	# Ripple starts expanding from player + subtle glitch ramps up
 	var tween = create_tween().set_parallel(true)
+	if player_mat:
+		tween.tween_method(
+			func(v): player_mat.set_shader_parameter("progress", v),
+			0.0, 1.0, half
+		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_method(
 		func(v): mat.set_shader_parameter("ripple_progress", v),
 		0.0, 0.6, half
@@ -193,6 +220,11 @@ func _switch():
 	# ===== PHASE 2: New reality settling (second half) =====
 	# Ripple continues expanding out + glitch fades away
 	tween = create_tween().set_parallel(true)
+	if player_mat:
+		tween.tween_method(
+			func(v): player_mat.set_shader_parameter("progress", v),
+			1.0, 0.0, half
+		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_method(
 		func(v): mat.set_shader_parameter("ripple_progress", v),
 		0.6, 1.5, half
@@ -213,9 +245,12 @@ func _switch():
 func _apply_timeline():
 	_toggle(LevelPast, is_past)
 	_toggle(LevelPresent, !is_past)
-	# Tint each timeline's world with its color
 	LevelPast.modulate = PAST_COLOR
 	LevelPresent.modulate = PRESENT_COLOR
+	# Muffled underwater sound in the past, normal in the present
+	if bgm:
+		var target_bus = "PastBus" if is_past else "Master"
+		bgm.bus = target_bus
 
 
 func _toggle(node: Node, on: bool):

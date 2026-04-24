@@ -7,21 +7,52 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_lgr22"]
 [ext_resource type="PackedScene" uid="uid://by58q0obqosb" path="res://Level 1/level_present.tscn" id="5_lgr22"]
 [ext_resource type="PackedScene" uid="uid://cdnqcq36v0p4d" path="res://Level 1/level_past.tscn" id="6_trn2v"]
-[ext_resource type="PackedScene" uid="uid://b4ffbx7esnehy" path="res://MainUI.tscn" id="9_bmxlf"]
 [ext_resource type="PackedScene" uid="uid://dfe8ss2pprks2" path="res://backgrounds.tscn" id="9_vy5pj"]
+[ext_resource type="AudioStream" uid="uid://bwxhmbhr3ggg7" path="res://Sounds/PM_FN_Spawns_Portals_Teleports_1.wav" id="10_bmxlf"]
+[ext_resource type="FontFile" uid="uid://d2w1jdkuov63g" path="res://Assets/Rajdhani-SemiBold.ttf" id="10_grg3l"]
+[ext_resource type="Texture2D" uid="uid://dyrwcthmw022i" path="res://dc64fc521aa83ad39617e50d30639629.png" id="11_4kpch"]
+[ext_resource type="Texture2D" uid="uid://2gqxpld7tikc" path="res://b5b9944704d5c75d9e27b0bb0274bb5f.png" id="11_grg3l"]
+[ext_resource type="Texture2D" uid="uid://dndoq56ewi232" path="res://Assets/rect14.png" id="13_frkhe"]
+[ext_resource type="Shader" uid="uid://c674cyxb7ktdq" path="res://shaders/shaderlib/very_simple_letterbox_shader.gdshader" id="15_erwvk"]
+[ext_resource type="AudioStream" uid="uid://jqu11wry6a83" path="res://TremLoadingloopl.wav" id="15_h1m7h"]
+[ext_resource type="Shader" uid="uid://bp84ytel3vwsn" path="res://shaders/shaderlib/vignette_with_reduced_banding_artifacts.gdshader" id="16_erwvk"]
 
 [sub_resource type="Resource" id="Resource_rj586"]
 script = ExtResource("3_3dxm6")
 
-[sub_resource type="Environment" id="Environment_hln0y"]
+[sub_resource type="Environment" id="Environment_h1m7h"]
 background_mode = 3
 glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.0
+glow_strength = 0.7
+glow_bloom = 0.05
+
+[sub_resource type="LabelSettings" id="LabelSettings_frkhe"]
+font = ExtResource("10_grg3l")
+font_size = 223
+
+[sub_resource type="LabelSettings" id="LabelSettings_grg3l"]
+font = ExtResource("10_grg3l")
+font_size = 322
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2w5on"]
+shader = ExtResource("15_erwvk")
+shader_parameter/squishedness = 0.0970000046075
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_346fj"]
+shader = ExtResource("16_erwvk")
+shader_parameter/inner_radius = 0.24
+shader_parameter/outer_radius = 1.0
+shader_parameter/vignette_strength = 0.57
+shader_parameter/dither_strength = 0.03
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node2D" unique_id=705178888]
 
 [node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1177587100 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(1495, -30)
+position = Vector2(35, -54)
 script = ExtResource("2_fos0i")
 follow_mode = 1
 follow_target = NodePath("../Player")
@@ -37,7 +68,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2135734600]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(1495, -30)
+position = Vector2(35, -54)
 zoom = Vector2(3.5, 3.5)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1750193794]
@@ -48,8 +79,12 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Player" parent="." unique_id=111959720 instance=ExtResource("1_cm0pq")]
 z_index = 3
-position = Vector2(1495, -30)
+position = Vector2(35, -54)
 scale = Vector2(0.9, 0.9)
+
+[node name="tp_sfx" type="AudioStreamPlayer2D" parent="Player" unique_id=1040233668]
+scale = Vector2(1.1111112, 1.1111112)
+stream = ExtResource("10_bmxlf")
 
 [node name="Level handler" type="Node2D" parent="." unique_id=469715480]
 script = ExtResource("1_fos0i")
@@ -57,22 +92,114 @@ GLITCH_STRENGTH = 0.01
 RGB_SPLIT = 0.02
 
 [node name="LevelPast" parent="Level handler" unique_id=1070730334 instance=ExtResource("6_trn2v")]
-visible = false
 
 [node name="LevelPresent" parent="Level handler" unique_id=1144876667 instance=ExtResource("5_lgr22")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=517840769]
-environment = SubResource("Environment_hln0y")
-
-[node name="Control" parent="." unique_id=588417449 instance=ExtResource("9_bmxlf")]
+environment = SubResource("Environment_h1m7h")
 
 [node name="Backgrounds" parent="." unique_id=1953073957 instance=ExtResource("9_vy5pj")]
 z_index = -5
 position = Vector2(34, 103)
 
 [node name="Label" type="Label" parent="." unique_id=1300253014]
-offset_left = 4293.0
-offset_top = 276.0
-offset_right = 4333.0
-offset_bottom = 299.0
+offset_left = 4347.0
+offset_top = 238.0
+offset_right = 4428.0
+offset_bottom = 261.0
 text = "Collectible"
+
+[node name="EnemyRobot" type="Label" parent="." unique_id=1178236650]
+z_index = -3
+offset_left = 97.000015
+offset_top = -192.0
+offset_right = 11088.0
+offset_bottom = 354.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0.8509804, 0.7647059, 0.7019608, 1)
+theme_override_font_sizes/font_size = 400
+text = "Warning: Hostile Robots. Press TAB to escape to the Past!"
+
+[node name="FriendlyRobot" type="Label" parent="." unique_id=216676355]
+z_index = -3
+offset_left = 2262.0
+offset_top = -34.0
+offset_right = 4656.0
+offset_bottom = 645.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0.8509804, 0.7647059, 0.7019608, 1)
+theme_override_font_sizes/font_size = 400
+text = "Jump on the robot's 
+head to cross the gap."
+label_settings = SubResource("LabelSettings_frkhe")
+
+[node name="TutorialJump" type="Label" parent="." unique_id=1764562280]
+z_index = -3
+offset_left = 423.0
+offset_top = -61.0
+offset_right = 3771.0
+offset_bottom = 618.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0.8509804, 0.7647059, 0.7019608, 1)
+theme_override_font_sizes/font_size = 400
+text = "Press Space to Jump"
+label_settings = SubResource("LabelSettings_grg3l")
+
+[node name="TutorialJump2" type="Label" parent="." unique_id=1911402125]
+offset_left = 656.0
+offset_top = -70.0
+offset_right = 3369.0
+offset_bottom = 505.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0.8509804, 0.7647059, 0.7019608, 1)
+theme_override_font_sizes/font_size = 400
+text = "Press TAB to 
+Switch Timelines"
+label_settings = SubResource("LabelSettings_frkhe")
+horizontal_alignment = 1
+
+[node name="Node" type="Node" parent="." unique_id=2029377114]
+
+[node name="Dc64Fc521Aa83Ad39617e50d30639629" type="Sprite2D" parent="Node" unique_id=1723227725]
+modulate = Color(0.87185585, 0.90162176, 0.90961504, 1)
+position = Vector2(-88.99999, -41.999996)
+scale = Vector2(0.1614582, 0.1614582)
+texture = ExtResource("11_4kpch")
+
+[node name="B5b9944704d5c75d9e27b0Bb0274Bb5f" type="Sprite2D" parent="Node" unique_id=394938749]
+modulate = Color(0.69099766, 0.69099766, 0.69099766, 1)
+position = Vector2(-90.00001, -20.999996)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("11_grg3l")
+
+[node name="Rect14" type="Sprite2D" parent="." unique_id=1921452867]
+position = Vector2(-19, -135)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_frkhe")
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1526798281]
+stream = ExtResource("15_h1m7h")
+volume_db = -9.208
+autoplay = true
+bus = &"PastBus"
+
+[node name="post process fx" type="CanvasLayer" parent="." unique_id=1431639782]
+layer = 20
+
+[node name="Letterbox" type="ColorRect" parent="post process fx" unique_id=929126908]
+material = SubResource("ShaderMaterial_2w5on")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Vignette" type="ColorRect" parent="post process fx" unique_id=1114786230]
+material = SubResource("ShaderMaterial_346fj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c8j0n4ul5qvr5"]
 
-[ext_resource type="Texture2D" uid="uid://2yvro7y7hlnh" path="res://leverbase.png" id="1_pix2u"]
+[ext_resource type="Texture2D" uid="uid://2yvro7y7hlnh" path="res://Assets/leverbase.png" id="1_pix2u"]
 [ext_resource type="Shader" uid="uid://dik8rqexmbll7" path="res://Outline/outline.gdshader" id="2_0njty"]
-[ext_resource type="Texture2D" uid="uid://dhygjc134keoa" path="res://leverstick.png" id="2_cnfg5"]
+[ext_resource type="Texture2D" uid="uid://dhygjc134keoa" path="res://Assets/leverstick.png" id="2_cnfg5"]
 [ext_resource type="Script" uid="uid://b03cpi01574k7" path="res://Scripts/lever.gd" id="3_lever"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_srstd"]

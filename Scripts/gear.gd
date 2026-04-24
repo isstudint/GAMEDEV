@@ -13,9 +13,19 @@ var is_moving: bool = true
 var _current_speed: float = 0.0
 var _time: float = 0.0
 
+var _sfx: AudioStreamPlayer2D
+
 func _ready() -> void:
 	_current_speed = spin_speed
 	_start_y = position.y
+	
+	# Setup single mechanical SFX — proximity-based
+	_sfx = AudioStreamPlayer2D.new()
+	add_child(_sfx)
+	_sfx.stream = load("res://Sounds/hydraulic_up.wav")
+	_sfx.max_distance = 500   # Wide proximity — hear it from far, gets LOUD when close
+	_sfx.attenuation = 1.0     # Smooth falloff curve
+	_sfx.volume_db = 5.0      # Base volume boost
 	
 	# Connect the Area2D signal if it exists as a child
 	if has_node("Area2D"):
@@ -27,6 +37,25 @@ func _process(delta: float) -> void:
 	if is_moving:
 		_time += delta
 		position.y = _start_y + sin(_time * bob_speed) * up_down
+	
+	_update_gear_sfx()
+
+func _update_gear_sfx() -> void:
+	var speed_ratio = abs(_current_speed) / spin_speed
+	
+	if speed_ratio > 0.05:
+		# Re-trigger sound when it finishes (seamless loop)
+		if !_sfx.playing:
+			_sfx.play()
+		# Pitch scales with rotation speed + subtle mechanical wobble for character
+		var base_pitch = 0.7 + (speed_ratio * 0.5)
+		var wobble = sin(_time * 8.0) * 0.03 * speed_ratio  # Slow mechanical hum
+		_sfx.pitch_scale = base_pitch + wobble
+		# Volume always strong when spinning
+		_sfx.volume_db = 10.0 + (speed_ratio * 4.0)  # 10dB to 14dB
+	else:
+		if _sfx.playing:
+			_sfx.stop()
 
 # Called when something enters the gear's Area2D
 func _on_body_entered(body: Node2D) -> void:

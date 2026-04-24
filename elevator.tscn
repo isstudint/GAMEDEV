@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://6isbpeg1j2vw"]
 
 [ext_resource type="Script" uid="uid://clf8libsnw51v" path="res://Scripts/elevator.gd" id="1_pc862"]
-[ext_resource type="Texture2D" uid="uid://c1endverksr1d" path="res://rect37.png" id="2_pc862"]
+[ext_resource type="Texture2D" uid="uid://c1endverksr1d" path="res://Assets/rect37.png" id="2_pc862"]
+[ext_resource type="AudioStream" uid="uid://cydmxseiadoop" path="res://Sounds/sfx_08a.ogg" id="3_sndup"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gho1x"]
 size = Vector2(87, 8.190559)
@@ -27,3 +28,7 @@ texture = ExtResource("2_pc862")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1108328957]
 position = Vector2(2.5, -34)
 shape = SubResource("RectangleShape2D_pc862")
+
+[node name="SoundUp" type="AudioStreamPlayer2D" parent="." unique_id=1600434833]
+stream = ExtResource("3_sndup")
+pitch_scale = 0.6
