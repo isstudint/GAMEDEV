@@ -26,8 +26,12 @@ var number_of_switching = 5.0
 @export_range(0.0, 0.02) var RGB_SPLIT: float = 0.005         # Color channel separation
 
 @export_group("Timeline Colors — tints the actual game world")
-@export var PAST_COLOR: Color = Color('#F5EDD8')       # Warm amber
-@export var PRESENT_COLOR: Color = Color(0.88, 0.95, 1.12)    # Cool blue
+@export var PAST_COLOR: Color = Color(1.0, 0.95, 0.85)        # Gentle golden warmth
+@export var PRESENT_COLOR: Color = Color(0.9, 0.95, 1.05)     # Very subtle cool shift
+
+@export_group("Atmospheric Background Colors")
+@export var BG_PAST_COLOR: Color = Color(1.0, 0.92, 0.82)     # Warm sunset wash on bg
+@export var BG_PRESENT_COLOR: Color = Color(0.88, 0.92, 1.0)  # Subtle cold — bg art is already dark!
 
 @export_group("SFX Pitches")
 @export var PAST_PITCH: float = 0.7         # Deeper, slower sound
@@ -176,9 +180,10 @@ func _switch():
 	rect.material = mat
 
 	# Get player material for teleport effect
-	var player_sprite = get_parent().get_node_or_null("Player/AnimatedSprite2D")
+	var player = get_parent().get_node_or_null("Player")
+	var player_sprite = player.get_node_or_null("AnimatedSprite2D") if player else null
 	var player_mat = player_sprite.material if player_sprite else null
-
+	
 	# ===== PHASE 1: Reality breaking (first half) =====
 	# Ripple starts expanding from player + subtle glitch ramps up
 	var tween = create_tween().set_parallel(true)
@@ -251,6 +256,64 @@ func _apply_timeline():
 	if bgm:
 		var target_bus = "PastBus" if is_past else "Master"
 		bgm.bus = target_bus
+		
+	# Automatically fade the broken reality shader if it exists in the Backgrounds scene
+	var bg = get_node_or_null("../Backgrounds")
+	if bg:
+		# Smoothly tween bg modulate instead of instant snap
+		var bg_target = BG_PAST_COLOR if is_past else BG_PRESENT_COLOR
+		var bg_tween = create_tween()
+		bg_tween.tween_property(bg, "modulate", bg_target, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		
+		var target_intensity = 0.0 if is_past else 1.0
+		# Crack fade — cinematic slow burn
+		var crack_fade_time = 1.4
+		# Fire fade — slightly longer so fire dissolves AFTER cracks start
+		var fire_fade_time = 1.6
+		
+		var nodes_to_check = [bg]
+		while nodes_to_check.size() > 0:
+			var n = nodes_to_check.pop_back()
+			if n is CanvasItem and n.material is ShaderMaterial:
+				var smat = n.material as ShaderMaterial
+				if smat.shader:
+					var path = smat.shader.resource_path
+					if path.ends_with("present_reality_crack.gdshader"):
+						var curr = smat.get_shader_parameter("crack_intensity")
+						if curr == null: curr = 0.0
+						var tween = create_tween()
+						tween.tween_method(func(v): smat.set_shader_parameter("crack_intensity", v), curr, float(target_intensity), crack_fade_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+					elif path.ends_with("sprite_fire_dissolve.gdshader"):
+						var curr = smat.get_shader_parameter("fire_intensity")
+						if curr == null: curr = 0.0
+						var tween = create_tween()
+						# EXPO easing — starts fast then slows into the dissolve
+						tween.tween_method(func(v): smat.set_shader_parameter("fire_intensity", v), curr, float(target_intensity), fire_fade_time).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT)
+			nodes_to_check.append_array(n.get_children())
+	
+	# Also fade tile crack shaders on LevelPresent tiles
+	if LevelPresent:
+		var target_intensity = 0.0 if is_past else 1.0
+		var nodes_to_check = [LevelPresent]
+		while nodes_to_check.size() > 0:
+			var n = nodes_to_check.pop_back()
+			if n is CanvasItem and n.material is ShaderMaterial:
+				var smat = n.material as ShaderMaterial
+				if smat.shader:
+					var path = smat.shader.resource_path
+					if path.ends_with("present_tile_crack.gdshader"):
+						var curr = smat.get_shader_parameter("crack_intensity")
+						if curr == null: curr = 0.0
+						var tween = create_tween()
+						tween.tween_method(func(v): smat.set_shader_parameter("crack_intensity", v), curr, float(target_intensity), 1.4).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+					elif path.ends_with("sprite_fire_dissolve.gdshader"):
+						var curr = smat.get_shader_parameter("fire_intensity")
+						if curr == null: curr = 0.0
+						var tween = create_tween()
+						tween.tween_method(func(v): smat.set_shader_parameter("fire_intensity", v), curr, float(target_intensity), 1.6).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT)
+			nodes_to_check.append_array(n.get_children())
+
+
 
 
 func _toggle(node: Node, on: bool):

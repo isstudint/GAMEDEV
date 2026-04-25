@@ -4,11 +4,12 @@
 [ext_resource type="Shader" uid="uid://dik8rqexmbll7" path="res://Outline/outline.gdshader" id="2_0njty"]
 [ext_resource type="Texture2D" uid="uid://dhygjc134keoa" path="res://Assets/leverstick.png" id="2_cnfg5"]
 [ext_resource type="Script" uid="uid://b03cpi01574k7" path="res://Scripts/lever.gd" id="3_lever"]
+[ext_resource type="FontFile" uid="uid://d2w1jdkuov63g" path="res://Assets/Rajdhani-SemiBold.ttf" id="5_srstd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_srstd"]
 shader = ExtResource("2_0njty")
 shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 10.0
+shader_parameter/width = 4.190000199025
 shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
@@ -17,8 +18,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4s2j"]
 shader = ExtResource("2_0njty")
 shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 10.0
-shader_parameter/pattern = 2
+shader_parameter/width = 4.190000199025
+shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
@@ -26,8 +27,13 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnfg5"]
 size = Vector2(848, 600)
 
+[sub_resource type="LabelSettings" id="LabelSettings_n4s2j"]
+font = ExtResource("5_srstd")
+font_size = 83
+
 [node name="Lever" type="Node2D" unique_id=191417954]
 script = ExtResource("3_lever")
+outline_width = 5.0
 
 [node name="Leverbase" type="Sprite2D" parent="." unique_id=903359809]
 material = SubResource("ShaderMaterial_srstd")
@@ -45,5 +51,16 @@ offset = Vector2(0, -219)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=16825983]
 position = Vector2(0, -212)
 shape = SubResource("RectangleShape2D_cnfg5")
+
+[node name="InteractLabel" type="Label" parent="." unique_id=1998514716]
+visible = false
+offset_left = -424.0
+offset_top = -504.0
+offset_right = -6.0
+offset_bottom = -397.0
+text = "F to Interact"
+label_settings = SubResource("LabelSettings_n4s2j")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=221140903]

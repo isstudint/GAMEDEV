@@ -3,13 +3,48 @@
 [ext_resource type="Texture2D" uid="uid://c7wlxltv0jjmj" path="res://Level 1 - Background/bg-present/layer1.png" id="2_1o8ca"]
 [ext_resource type="Texture2D" uid="uid://bbehbxtnj0er6" path="res://layer2.png" id="2_8fqiw"]
 [ext_resource type="Texture2D" uid="uid://djayotapj1qvj" path="res://Level 1 - Background/bg-present/4.png" id="2_qdgfh"]
+[ext_resource type="Shader" uid="uid://cfv11vgd8er42" path="res://shaders/shaderlib/present_reality_crack.gdshader" id="3_3gs5q"]
 [ext_resource type="Texture2D" uid="uid://84xukgsfqvao" path="res://Level 1 - Background/bg-present/fin.png" id="3_8fqiw"]
 [ext_resource type="Texture2D" uid="uid://cqtu7t0vq5w8x" path="res://Level 1 - Background/bg-present/Stars iphone6+.png" id="4_8fqiw"]
+[ext_resource type="Shader" uid="uid://deu3u7h2xpxce" path="res://shaders/shaderlib/sprite_fire_dissolve.gdshader" id="4_imn3j"]
 
 [sub_resource type="Gradient" id="Gradient_qdgfh"]
-colors = PackedColorArray(1, 1, 1, 0, 0.756228, 0.16248745, 0.0657693, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0.4915421, 0.41878384, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3gs5q"]
+gradient = SubResource("Gradient_qdgfh")
+use_hdr = true
+fill_from = Vector2(0, 0.30769232)
+fill_to = Vector2(0, 0.8119658)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0khys"]
+shader = ExtResource("4_imn3j")
+shader_parameter/fire_color = Color(1, 0.454, 0.089999974, 0.6313726)
+shader_parameter/edge_color = Color(1, 0.86800003, 0.33999997, 0.7921569)
+shader_parameter/fire_height = 0.23600001121
+shader_parameter/fire_intensity = 1.0
+shader_parameter/fire_speed = -3.09
+shader_parameter/fire_scale = 24.51
+shader_parameter/edge_thickness = 0.08
+shader_parameter/crack_opacity = 0.25
+shader_parameter/crack_color = Color(0.112435736, 0.28449306, 0.28152797, 1)
+shader_parameter/crack_scale = 16.925
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gs5q"]
+shader = ExtResource("3_3gs5q")
+shader_parameter/crack_intensity = 1.0
+shader_parameter/crack_color = Color(0, 0.24053293, 0.13363594, 1)
+shader_parameter/time_scale = 0.2
+shader_parameter/crack_scale = 7.465
+shader_parameter/jaggedness = 0.065
+shader_parameter/glitch_strength = 0.01200000057
+shader_parameter/glitch_frequency = 0.3410000161975
+shader_parameter/void_threshold = 0.70000003325
+shader_parameter/void_size = 0.058000002755
+shader_parameter/chromatic_aberration = 0.02
+shader_parameter/blur_amount = 0.0
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_imn3j"]
 gradient = SubResource("Gradient_qdgfh")
 use_hdr = true
 fill_from = Vector2(0, 0.30769232)
@@ -47,14 +82,6 @@ scale = Vector2(1.214, 1.214)
 texture = ExtResource("2_qdgfh")
 centered = false
 
-[node name="ColorRect2" type="ColorRect" parent="Last Layer/4" unique_id=1050689272]
-offset_left = -371.55725
-offset_top = 309.08362
-offset_right = -331.55725
-offset_bottom = 349.08362
-scale = Vector2(56.8, 6.77)
-color = Color(0.023529412, 0.05882353, 0.20784314, 1)
-
 [node name="fog" type="Parallax2D" parent="." unique_id=842870678]
 scale = Vector2(0.435, 0.435)
 scroll_scale = Vector2(0.2, 0.2)
@@ -90,6 +117,7 @@ repeat_size = Vector2(1197.885, 0)
 repeat_times = 5
 
 [node name="Layer1" type="Sprite2D" parent="2nd Layer" unique_id=2115782541]
+material = SubResource("ShaderMaterial_0khys")
 position = Vector2(71.21212, 53.030304)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_1o8ca")
@@ -102,14 +130,39 @@ repeat_size = Vector2(1500, 0)
 repeat_times = 5
 
 [node name="Fin" type="Sprite2D" parent="1st Layer" unique_id=1249871524]
+material = SubResource("ShaderMaterial_3gs5q")
 position = Vector2(722.7273, 171.21211)
 scale = Vector2(0.37, 0.37)
 texture = ExtResource("3_8fqiw")
 
-[node name="ColorRect" type="ColorRect" parent="1st Layer" unique_id=1086005277]
+[node name="G" type="ColorRect" parent="1st Layer" unique_id=1086005277]
 offset_left = 1446.5631
 offset_top = 528.6182
 offset_right = 1486.5631
 offset_bottom = 568.6182
 scale = Vector2(37.765, 6.77)
+mouse_filter = 2
 color = Color(0.043137256, 0.3137255, 0.37254903, 1)
+
+[node name="1st Layer2" type="Parallax2D" parent="." unique_id=1750609847]
+scale = Vector2(0.66, 0.66)
+scroll_scale = Vector2(0.778, 0.778)
+repeat_size = Vector2(811.135, 0)
+repeat_times = 5
+
+[node name="TextureRect2" type="TextureRect" parent="1st Layer2" unique_id=2025640333]
+modulate = Color(1, 1, 1, 0.11764706)
+offset_left = 1552.8143
+offset_top = -334.2332
+offset_right = 2363.8145
+offset_bottom = 465.7668
+texture = SubResource("GradientTexture2D_imn3j")
+
+[node name="Blue" type="ColorRect" parent="." unique_id=1050689272]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.023529412, 0.05882353, 0.20784314, 1)

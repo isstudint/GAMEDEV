@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://dfm2h8ri32vn3"]
 
-[ext_resource type="Script" path="res://Scripts/moving_platform.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://bs6rxcu3quhlp" path="res://Scripts/moving_platform.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://c1endverksr1d" path="res://Assets/rect37.png" id="2_texture"]
+[ext_resource type="AudioStream" uid="uid://cydmxseiadoop" path="res://Sounds/sfx_08a.ogg" id="3_pbjlq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
 size = Vector2(208, 80)
@@ -17,3 +18,7 @@ shape = SubResource("RectangleShape2D_platform")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1695195646]
 position = Vector2(0, -4)
 texture = ExtResource("2_texture")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=914230995]
+stream = ExtResource("3_pbjlq")
+parameters/looping = true

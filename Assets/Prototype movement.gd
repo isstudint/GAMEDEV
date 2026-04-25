@@ -125,10 +125,7 @@ class_name PlatformerController2D
 var _walk_stream: AudioStream = preload("res://Sounds/walk.mp3")
 var _landing_stream: AudioStream = preload("res://Sounds/landing-sfx.mp3")
 var _airtime: float = 0.0  # Track how long we've been in the air
- 
-
-
-
+var _was_on_floor: bool = true
 #Variables determined by the developer set ones.
 var appliedGravity: float
 var maxSpeedLock: float
@@ -195,7 +192,7 @@ var twirlTap
 # --- Camera Peek (Ctrl + Arrows) ---
 var _pcam: Node2D = null
 var _peek_offset: Vector2 = Vector2.ZERO
-var _peek_max: float = 50.0
+var _peek_max: float = 130.0
 var _peek_speed: float = 4.0
 
 func _ready():
@@ -204,6 +201,12 @@ func _ready():
 	col = PlayerCollider
 	_updateData()
 	_setup_footsteps()
+	
+	# --- Slope settings ---
+	floor_constant_speed = true       # Keep same horizontal speed on slopes
+	floor_snap_length = 8.0           # Snap to floor on slopes (prevents bouncing off)
+	floor_max_angle = deg_to_rad(46)  # Max walkable slope angle
+	
 	await get_tree().process_frame
 	_pcam = get_node_or_null("/root/Main/PhantomCamera2D")
 	if _pcam and _pcam.follow_mode == 1: # Switch Glued -> Simple so offset works
@@ -614,14 +617,17 @@ func _physics_process(delta):
 		_endGroundPound()
 	
 	# --- Landing detection ---
+	_was_on_floor = is_on_floor()
+	move_and_slide()
+	
 	if is_on_floor():
-		if _airtime > 0.15:  # Only trigger on real jumps/falls, not tiny hops
+		if !_was_on_floor and _airtime > 0.15:
 			_play_landing()
 		_airtime = 0.0
 	else:
 		_airtime += delta
+
 	
-	move_and_slide()
 	check_clipping()
 	_camera_peek(delta)
 	_update_footsteps(delta)
@@ -713,25 +719,16 @@ func _placeHolder():
 	pass
 
 func _setup_footsteps():
-	# Footstep player — auto-create if not assigned in scene
-	if !footstep_player:
-		footstep_player = AudioStreamPlayer2D.new()
-		footstep_player.name = "FootstepPlayer"
-		add_child(footstep_player)
-	
-	if _walk_stream:
+	# If the user assigned nodes in the inspector, make sure they use our streams as fallback
+	if footstep_player and footstep_player.stream == null and _walk_stream:
 		footstep_player.stream = _walk_stream
-	
-	# Landing player — auto-create if not assigned in scene
-	if !landing_sfx:
-		landing_sfx = AudioStreamPlayer2D.new()
-		landing_sfx.name = "LandingSFX"
-		add_child(landing_sfx)
-	
-	if _landing_stream:
+		
+	if landing_sfx and landing_sfx.stream == null and _landing_stream:
 		landing_sfx.stream = _landing_stream
 
-func _update_footsteps(delta: float):
+func _update_footsteps(_delta: float):
+	if !footstep_player: return
+	
 	# Only play when grounded, moving, not on wall, not dashing
 	var should_play = is_on_floor() and !is_on_wall() and abs(velocity.x) > 20.0 and !dashing and !latched
 	
@@ -755,7 +752,7 @@ func _play_landing():
 		# Subtle crispy landing — scales with fall intensity
 		var impact = clamp(abs(velocity.y) / terminalVelocity, 0.2, 1.0)
 		landing_sfx.pitch_scale = 1.1 - (impact * 0.15)  # Slight deepening on hard falls
-		landing_sfx.volume_db = -12.0 + (impact * 8.0)    # -12dB to -4dB — subtle
+		landing_sfx.volume_db = -8.0 + (impact * 8.0)    # -12dB to -4dB — subtle
 		landing_sfx.play()
 
 # --- Camera Peek ---

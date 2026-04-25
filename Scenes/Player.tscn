@@ -146,6 +146,8 @@
 [ext_resource type="Texture2D" uid="uid://pyh7s1ut2ylk" path="res://Player Anim/Walk/walk_27.png" id="120_pdn4m"]
 [ext_resource type="Texture2D" uid="uid://e26d25fj1j21" path="res://Player Anim/Walk/walk_28.png" id="121_wnhnj"]
 [ext_resource type="Texture2D" uid="uid://dsmc18qykevlq" path="res://Player Anim/Walk/walk_29.png" id="122_8eiaa"]
+[ext_resource type="AudioStream" uid="uid://65fmysqe1tf1" path="res://Sounds/walk.mp3" id="147_85eqs"]
+[ext_resource type="AudioStream" uid="uid://cao0jryx537ye" path="res://Sounds/landing-sfx.mp3" id="148_to82f"]
 
 [sub_resource type="SystemFont" id="SystemFont_50glp"]
 subpixel_positioning = 0
@@ -617,7 +619,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkbsi"]
 size = Vector2(11, 63.8578)
 
-[node name="Player" type="CharacterBody2D" unique_id=1572011041 node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1572011041 node_paths=PackedStringArray("PlayerSprite", "PlayerCollider", "footstep_player", "landing_sfx") groups=["player"]]
 script = ExtResource("1_cxr5p")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
@@ -629,6 +631,8 @@ idle = true
 walk = true
 slide = true
 latch = true
+footstep_player = NodePath("walk_sfx")
+landing_sfx = NodePath("land_sfx")
 
 [node name="DebugHUD" type="CanvasLayer" parent="." unique_id=1685359606]
 layer = 100
@@ -655,3 +659,12 @@ position = Vector2(0.5, 13.9289)
 shape = SubResource("RectangleShape2D_vkbsi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1146075756]
+
+[node name="walk_sfx" type="AudioStreamPlayer2D" parent="." unique_id=106875144]
+stream = ExtResource("147_85eqs")
+volume_db = 7.75
+
+[node name="land_sfx" type="AudioStreamPlayer2D" parent="." unique_id=1993975932]
+stream = ExtResource("148_to82f")
+volume_db = 12.625
+pitch_scale = 1.89

@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/exit_terminal.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blocker"]
+size = Vector2(64, 256)
+
+[node name="ExitTerminal" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.3, 0.3, 1)
+
+[node name="Blocker" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocker"]
+shape = SubResource("RectangleShape2D_blocker")
+
+[node name="StatusLabel" type="Label" parent="."]
+offset_left = -80.0
+offset_top = -150.0
+offset_right = 80.0
+offset_bottom = -120.0
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "EXIT LOCKED"

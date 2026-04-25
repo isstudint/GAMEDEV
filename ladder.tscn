@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://7sdn86pycrre"]
+
+[ext_resource type="Texture2D" uid="uid://c3dwqmp2ktxif" path="res://path1.png" id="1_cq4ai"]
+[ext_resource type="Script" uid="uid://c4unvbiq4nm8" path="res://Scripts/ladder.gd" id="2_ladder"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqhsa"]
+size = Vector2(84, 848)
+
+[node name="Ladder" type="Node2D" unique_id=1691695868]
+script = ExtResource("2_ladder")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1314954745]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=449435849]
+position = Vector2(0, -422)
+shape = SubResource("RectangleShape2D_lqhsa")
+
+[node name="Path1" type="Sprite2D" parent="StaticBody2D" unique_id=1544952469]
+self_modulate = Color(2.7083335, 2.7083335, 2.7083335, 1)
+texture_filter = 1
+texture = ExtResource("1_cq4ai")
+offset = Vector2(0, -423)

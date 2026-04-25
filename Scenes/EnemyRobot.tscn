@@ -38,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://cciqxgcj8fvl5" path="res://Robot Anim/Walk/Walk_009.png" id="36_b3g8t"]
 [ext_resource type="Texture2D" uid="uid://d3asbjdtfp0tu" path="res://Robot Anim/Walk/Walk_010.png" id="37_lpqbs"]
 [ext_resource type="Texture2D" uid="uid://bd12nhw1bai5x" path="res://Robot Anim/Walk/Walk_011.png" id="38_aoucg"]
+[ext_resource type="Texture2D" uid="uid://o0j0w6kmaspy" path="res://path17.png" id="39_gngmh"]
 [ext_resource type="AudioStream" uid="uid://ddo3m02n41fx" path="res://Sounds/enemy_robot-sfx.mp3" id="39_walk_sfx"]
 [ext_resource type="AudioStream" uid="uid://dugi784um6gh6" path="res://Sounds/enemy_robot-shoot.mp3" id="40_shoot_sfx"]
 
@@ -172,7 +173,7 @@ radius = 7.0
 height = 32.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_detect"]
-size = Vector2(144.75, 50)
+size = Vector2(144.75, 45)
 
 [node name="EnemyRobot" type="CharacterBody2D" unique_id=581152601]
 script = ExtResource("1_script")
@@ -184,15 +185,22 @@ scale = Vector2(0.115, 0.115)
 sprite_frames = SubResource("SpriteFrames_robot")
 animation = &"shoot"
 
+[node name="Sprite2D" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1495872991]
+self_modulate = Color(18.892157, 0, 0, 0.023529412)
+position = Vector2(681.77466, -31.478271)
+scale = Vector2(3.2894957, 1.592768)
+texture = ExtResource("39_gngmh")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1557746851]
 position = Vector2(-7.0625, -4.379999)
 shape = SubResource("CapsuleShape2D_3f5ur")
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1893766754]
+visible = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1517163969]
-position = Vector2(82.375, -12)
+position = Vector2(74, -10)
 shape = SubResource("RectangleShape2D_detect")
 
 [node name="FloorCheck" type="RayCast2D" parent="." unique_id=1180828451]
@@ -200,7 +208,7 @@ position = Vector2(8, 0)
 target_position = Vector2(0, 24)
 
 [node name="ShootCooldownTimer" type="Timer" parent="." unique_id=487689582]
-wait_time = 1.5
+wait_time = 2.0
 one_shot = true
 
 [node name="BulletSpawnPoint" type="Marker2D" parent="." unique_id=958450686]

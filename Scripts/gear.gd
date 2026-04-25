@@ -13,20 +13,12 @@ var is_moving: bool = true
 var _current_speed: float = 0.0
 var _time: float = 0.0
 
-var _sfx: AudioStreamPlayer2D
-
+@onready var _sfx = $Gear_sfx
 func _ready() -> void:
 	_current_speed = spin_speed
 	_start_y = position.y
-	
-	# Setup single mechanical SFX — proximity-based
-	_sfx = AudioStreamPlayer2D.new()
-	add_child(_sfx)
-	_sfx.stream = load("res://Sounds/hydraulic_up.wav")
-	_sfx.max_distance = 500   # Wide proximity — hear it from far, gets LOUD when close
-	_sfx.attenuation = 1.0     # Smooth falloff curve
-	_sfx.volume_db = 5.0      # Base volume boost
-	
+
+
 	# Connect the Area2D signal if it exists as a child
 	if has_node("Area2D"):
 		$Area2D.body_entered.connect(_on_body_entered)

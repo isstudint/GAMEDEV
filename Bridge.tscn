@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://sttatct1yx3a"]
+
+[ext_resource type="Texture2D" uid="uid://clduekdgf8nbk" path="res://path13.png" id="1_fpqf5"]
+[ext_resource type="Shader" uid="uid://d4bc5dpk2emcx" path="res://shaders/shaderlib/teleport_effect.gdshader" id="1_nlbgg"]
+[ext_resource type="Texture2D" uid="uid://80oqbrieavmy" path="res://path2.png" id="2_xu807"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nlbgg"]
+shader = ExtResource("1_nlbgg")
+shader_parameter/progress = 0.0
+shader_parameter/noise_desnity = 60.0
+shader_parameter/beam_size = 0.0
+shader_parameter/color = Color(0, 1.02, 1.2, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlbgg"]
+size = Vector2(165, 45)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewbyb"]
+
+[node name="Node2D" type="Node2D" unique_id=64282152]
+material = SubResource("ShaderMaterial_nlbgg")
+
+[node name="Body" type="StaticBody2D" parent="." unique_id=225229941]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body" unique_id=696035484]
+z_index = 2
+position = Vector2(77.5, 55.5)
+shape = SubResource("RectangleShape2D_nlbgg")
+
+[node name="Path2" type="Sprite2D" parent="Body" unique_id=1718997642]
+material = SubResource("ShaderMaterial_ewbyb")
+position = Vector2(77.99999, -1.9999924)
+scale = Vector2(0.21127564, 0.21127564)
+texture = ExtResource("2_xu807")
+
+[node name="Path13" type="Sprite2D" parent="." unique_id=274127038]
+z_index = 10
+position = Vector2(6, 0)
+scale = Vector2(0.18455498, 0.18455495)
+texture = ExtResource("1_fpqf5")
+
+[node name="Path14" type="Sprite2D" parent="Path13" unique_id=1648902872]
+z_index = 10
+position = Vector2(780.25525, 0)
+scale = Vector2(1, 1.0000001)
+texture = ExtResource("1_fpqf5")
