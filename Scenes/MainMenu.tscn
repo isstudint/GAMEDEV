@@ -1,8 +1,6 @@
-[gd_scene format=3 uid="uid://dejgbyey7vc3j"]
+[gd_scene load_steps=11 format=3 uid="uid://dejgbyey7vc3j"]
 
-[ext_resource type="Texture2D" uid="uid://cbqscly300ddn" path="res://Futuristic City Parallax/background.png" id="1_bg"]
-[ext_resource type="Texture2D" uid="uid://qm8rh43vc1pe" path="res://Futuristic City Parallax/city4plan.png" id="2_city"]
-[ext_resource type="Texture2D" uid="uid://d1cbiu883b5lm" path="res://Futuristic City Parallax/smog1.png" id="3_smog"]
+[ext_resource type="Texture2D" path="res://Assets/menu_bg.jpg" id="1_new_bg"]
 [ext_resource type="Script" uid="uid://ca23yp5upi3mf" path="res://Scripts/main_menu.gd" id="4_script"]
 [ext_resource type="Shader" uid="uid://bthwlxk27kqw5" path="res://Scripts/glitch_title.gdshader" id="5_shader"]
 [ext_resource type="FontFile" uid="uid://cfk2h0653sx1g" path="res://Assets/Orbitron.ttf" id="6_title_font"]
@@ -25,7 +23,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="MainMenu" type="Control" unique_id=702044501]
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,62 +32,52 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_script")
 
-[node name="Background" type="TextureRect" parent="." unique_id=1961571900]
-modulate = Color(0.25, 0.2, 0.3, 1)
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_bg")
+texture = ExtResource("1_new_bg")
 expand_mode = 1
 stretch_mode = 6
+modulate = Color(0.6, 0.65, 0.75, 1)
 
-[node name="CityLayer" type="TextureRect" parent="." unique_id=1502317344]
-modulate = Color(0.15, 0.12, 0.2, 0.8)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -400.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("2_city")
-expand_mode = 1
-stretch_mode = 6
+[node name="Particles" type="CPUParticles2D" parent="."]
+position = Vector2(960, 1080)
+amount = 150
+lifetime = 10.0
+preprocess = 10.0
+emission_shape = 3
+emission_rect_extents = Vector2(960, 1)
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 20.0
+initial_velocity_max = 80.0
+scale_amount_min = 2.0
+scale_amount_max = 6.0
+color = Color(1.0, 0.6, 0.2, 0.6)
 
-[node name="SmogLayer" type="TextureRect" parent="." unique_id=610088270]
-modulate = Color(0.3, 0.25, 0.35, 0.3)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_smog")
-expand_mode = 1
-stretch_mode = 6
-
-[node name="DarkOverlay" type="ColorRect" parent="." unique_id=1140143547]
+[node name="DarkOverlay" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+color = Color(0, 0, 0, 0.2)
 
-[node name="VignetteTop" type="ColorRect" parent="." unique_id=2119081542]
+[node name="VignetteTop" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 200.0
 grow_horizontal = 2
-color = Color(0, 0, 0, 0.6)
+color = Color(0, 0, 0, 0.4)
 
-[node name="VignetteBottom" type="ColorRect" parent="." unique_id=793042340]
+[node name="VignetteBottom" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -98,9 +86,9 @@ anchor_bottom = 1.0
 offset_top = -150.0
 grow_horizontal = 2
 grow_vertical = 0
-color = Color(0, 0, 0, 0.7)
+color = Color(0, 0, 0, 0.6)
 
-[node name="TitleClean" type="Label" parent="." unique_id=1286307334]
+[node name="TitleClean" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -110,17 +98,16 @@ offset_top = 160.0
 offset_right = 400.0
 offset_bottom = 300.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 1)
 theme_override_colors/font_outline_color = Color(0.1, 0.3, 0.6, 0.4)
-theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("6_title_font")
 theme_override_font_sizes/font_size = 110
+theme_override_constants/outline_size = 6
 text = "PASTFORWARD"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TitleCorrupt" type="Label" parent="." unique_id=1311091464]
-visible = false
+[node name="TitleCorrupt" type="Label" parent="."]
 material = SubResource("ShaderMaterial_glitch")
 layout_mode = 1
 anchors_preset = 5
@@ -131,16 +118,17 @@ offset_top = 160.0
 offset_right = 400.0
 offset_bottom = 300.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 0.25, 0.15, 1)
-theme_override_colors/font_outline_color = Color(0.8, 0.1, 0, 0.5)
-theme_override_constants/outline_size = 6
+visible = false
+theme_override_colors/font_color = Color(0.9, 0.2, 0.1, 1)
+theme_override_colors/font_outline_color = Color(0.8, 0.1, 0.0, 0.5)
 theme_override_fonts/font = ExtResource("6_title_font")
 theme_override_font_sizes/font_size = 110
+theme_override_constants/outline_size = 6
 text = "PASTFORWARD"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Subtitle" type="Label" parent="." unique_id=1275807009]
+[node name="Subtitle" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -157,7 +145,7 @@ text = "Fixing the past. Save the present."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=320075787]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -169,49 +157,49 @@ offset_bottom = 640.0
 grow_horizontal = 2
 theme_override_constants/separation = 12
 
-[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=932548935]
+[node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.82, 0.95, 1)
+theme_override_colors/font_hover_color = Color(0.4, 0.75, 1.0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.4, 0.75, 1, 1)
 theme_override_fonts/font = ExtResource("7_ui_font")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_btn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn")
 text = "» Start Game"
 flat = true
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=2023015668]
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.82, 0.95, 1)
+theme_override_colors/font_hover_color = Color(0.4, 0.75, 1.0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.4, 0.75, 1, 1)
 theme_override_fonts/font = ExtResource("7_ui_font")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_btn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn")
 text = "» Settings"
 flat = true
 
-[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=140101302]
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.82, 0.95, 1)
+theme_override_colors/font_hover_color = Color(0.4, 0.75, 1.0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0.4, 0.75, 1, 1)
 theme_override_fonts/font = ExtResource("7_ui_font")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_btn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn")
 text = "» Quit"
 flat = true
 
-[node name="VersionLabel" type="Label" parent="." unique_id=1512375560]
+[node name="VersionLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

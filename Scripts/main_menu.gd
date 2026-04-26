@@ -9,8 +9,6 @@ extends Control
 @onready var settings_btn: Button = $VBoxContainer/SettingsButton
 @onready var quit_btn: Button = $VBoxContainer/QuitButton
 @onready var dark_overlay: ColorRect = $DarkOverlay
-@onready var smog_layer: TextureRect = $SmogLayer
-@onready var city_layer: TextureRect = $CityLayer
 
 var subtitle_clean_text: String = "Fixing the past. Save the present."
 var subtitle_corrupt_text: String = "THE PAST IS BROKEN."
@@ -41,19 +39,14 @@ func _play_intro():
 	# Hide everything
 	title_clean.modulate.a = 0.0
 	subtitle.modulate.a = 0.0
-	city_layer.modulate.a = 0.0
-	smog_layer.modulate.a = 0.0
 
 	var buttons = [start_btn, settings_btn, quit_btn]
 	for btn in buttons:
 		btn.modulate.a = 0.0
 		btn.position.x -= 40
 
-	# Fade in background layers
+	# Fade in background (already handled by the instanced scene, so just wait briefly)
 	await get_tree().create_timer(0.2).timeout
-	var bg_tween = create_tween().set_parallel()
-	bg_tween.tween_property(city_layer, "modulate:a", 0.8, 1.5)
-	bg_tween.tween_property(smog_layer, "modulate:a", 0.3, 2.0)
 
 	# Title fade in
 	await get_tree().create_timer(0.5).timeout
@@ -80,12 +73,7 @@ func _play_intro():
 
 
 func _ambient_loop():
-	# Slowly drift the smog layer for a living feel
-	while true:
-		var drift = create_tween().set_loops()
-		drift.tween_property(smog_layer, "position:x", 30.0, 8.0).set_trans(Tween.TRANS_SINE)
-		drift.tween_property(smog_layer, "position:x", -30.0, 8.0).set_trans(Tween.TRANS_SINE)
-		await drift.finished
+	pass
 
 
 func _glitch_loop():
