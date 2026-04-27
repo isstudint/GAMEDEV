@@ -38,6 +38,14 @@
 [ext_resource type="Texture2D" uid="uid://cu5cnue5p586r" path="res://Robot Anim/shoot2/Shoot2_010.png" id="24_tp064"]
 [ext_resource type="Texture2D" uid="uid://blhfuu1f4jrtk" path="res://Robot Anim/shoot2/Shoot2_011.png" id="25_dink0"]
 
+[ext_resource type="Shader" path="res://Scripts/futuristic_friendly.gdshader" id="1_shader_fut"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fut"]
+shader = ExtResource("1_shader_fut")
+shader_parameter/armor_tint = Color(1.5, 1.5, 1.8, 1)
+shader_parameter/glow_color = Color(0.2, 0.8, 3, 1)
+shader_parameter/light_threshold = 0.55
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
 size = Vector2(24, 8)
 
@@ -182,6 +190,14 @@ target_position = Vector2(0, 20)
 target_position = Vector2(14, -8)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1354126306]
+material = SubResource("ShaderMaterial_fut")
 scale = Vector2(0.11500001, 0.115)
 sprite_frames = SubResource("SpriteFrames_yjejp")
 animation = &"idle"
+
+[node name="ScanningLight" type="PointLight2D" parent="."]
+position = Vector2(0, 8)
+color = Color(0.2, 0.6, 1, 1)
+energy = 1.5
+texture = ExtResource("2_master_tex")
+texture_scale = 0.2

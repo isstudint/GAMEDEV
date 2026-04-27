@@ -23,6 +23,7 @@ extends CharacterBody2D
 @onready var bullet_spawn: Marker2D = $BulletSpawnPoint
 @onready var walk_sfx: AudioStreamPlayer2D = $WalkSFX
 @onready var shoot_sfx: AudioStreamPlayer2D = $ShootSFX
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 var direction: int = 1   # 1 = right, -1 = left
 var start_x: float
@@ -65,15 +66,22 @@ func _physics_process(delta):
 		velocity.y = 0
 
 	if player_detected and player_ref:
-		# Face the player
+		# AGGRO: Face and track player
+		sprite.material.set_shader_parameter("is_aggro", true)
 		if player_ref.global_position.x > global_position.x:
 			direction = 1
 		else:
 			direction = -1
 
-		velocity.x = 0
-		# Stop walk sound when engaging player
-		if walk_sfx and walk_sfx.playing:
+		# Small advance towards player if they are too far
+		var dist = abs(player_ref.global_position.x - global_position.x)
+		if dist > 80.0:
+			velocity.x = patrol_speed * 1.2 * direction
+		else:
+			velocity.x = 0
+			
+		# Stop walk sound when engaging player if stationary
+		if velocity.x == 0 and walk_sfx and walk_sfx.playing:
 			walk_sfx.stop()
 
 		# React delay before first shot
@@ -95,6 +103,7 @@ func _physics_process(delta):
 			_shoot()
 	else:
 		is_reacting = false
+		sprite.material.set_shader_parameter("is_aggro", false)
 
 		# --- Edge detection: turn around if no floor ahead ---
 		if is_on_floor() and not floor_check.is_colliding():
@@ -127,6 +136,7 @@ func _shoot():
 	if not cooldown_timer.is_stopped():
 		return
 	cooldown_timer.start()
+	anim_player.play("shoot")
 	sprite.play("shoot")
 	if shoot_sfx:
 		shoot_sfx.play()
@@ -134,5 +144,18 @@ func _shoot():
 	if bullet_scene:
 		var bullet = bullet_scene.instantiate()
 		bullet.global_position = bullet_spawn.global_position
-		bullet.direction = direction
+		
+		# --- Predictive Aiming ---
+		# Aim where the player is going to be in 0.25 seconds
+		var prediction_factor = 0.25
+		var player_vel = 0.0
+		if player_ref and "velocity" in player_ref:
+			player_vel = player_ref.velocity.x
+		
+		var target_dir = direction
+		if player_ref:
+			var predicted_x = player_ref.global_position.x + (player_vel * prediction_factor)
+			target_dir = 1 if predicted_x > global_position.x else -1
+		
+		bullet.direction = target_dir
 		get_tree().current_scene.add_child(bullet)

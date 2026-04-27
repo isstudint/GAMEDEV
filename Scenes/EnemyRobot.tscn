@@ -41,6 +41,13 @@
 [ext_resource type="Texture2D" uid="uid://o0j0w6kmaspy" path="res://path17.png" id="39_gngmh"]
 [ext_resource type="AudioStream" uid="uid://ddo3m02n41fx" path="res://Sounds/enemy_robot-sfx.mp3" id="39_walk_sfx"]
 [ext_resource type="AudioStream" uid="uid://dugi784um6gh6" path="res://Sounds/enemy_robot-shoot.mp3" id="40_shoot_sfx"]
+[ext_resource type="Shader" path="res://Scripts/cyberpunk_enemy.gdshader" id="1_shader_cyb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cyb"]
+shader = ExtResource("1_shader_cyb")
+shader_parameter/dark_tint = Color(0.4, 0.25, 0.25, 1)
+shader_parameter/glow_color = Color(3, 0.2, 0.1, 1)
+shader_parameter/light_threshold = 0.55
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_robot"]
 animations = [{
@@ -175,11 +182,43 @@ height = 32.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_detect"]
 size = Vector2(144.75, 45)
 
+[sub_resource type="Animation" id="Animation_shoot"]
+resource_name = "shoot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"shoot"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BulletSpawnPoint/MuzzleFlash:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_enemy"]
+_data = {
+"shoot": SubResource("Animation_shoot")
+}
 [node name="EnemyRobot" type="CharacterBody2D" unique_id=581152601]
 script = ExtResource("1_script")
 bullet_scene = ExtResource("2_p00pi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=661689738]
+material = SubResource("ShaderMaterial_cyb")
 position = Vector2(-8.0625, -6.3799987)
 scale = Vector2(0.115, 0.115)
 sprite_frames = SubResource("SpriteFrames_robot")
@@ -211,8 +250,20 @@ target_position = Vector2(0, 24)
 wait_time = 2.0
 one_shot = true
 
-[node name="BulletSpawnPoint" type="Marker2D" parent="." unique_id=958450686]
-position = Vector2(12, 0)
+[node name="BulletSpawnPoint" type="Marker2D" parent="." unique_id=1021469089]
+position = Vector2(16, -16)
+
+[node name="MuzzleFlash" type="PointLight2D" parent="BulletSpawnPoint"]
+enabled = false
+color = Color(1, 0.45, 0.2, 1)
+energy = 2.0
+texture = ExtResource("39_gngmh")
+texture_scale = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_enemy")
+}
 
 [node name="WalkSFX" type="AudioStreamPlayer2D" parent="." unique_id=517873116]
 stream = ExtResource("39_walk_sfx")
